@@ -2,20 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Entities\User;
-use App\Http\Requests\UserValidation;
-use App\Http\Services\Interfaces\IUserService;
 use Illuminate\Http\Request;
-use App\View;
 
-
-class UserController extends Controller
+class RoleController extends Controller
 {
-
-    public function __construct()
-    {
-        //TODO
-    }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +32,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserValidation $request)
+    public function store(Request $request)
     {
         //TODO
     }
