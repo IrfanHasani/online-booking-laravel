@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'email', 'password','last_name','role_id'
+        'first_name', 'last_name', 'phone', 'email', 'password', 'confirmed', 'role_id'
     ];
 
     /**
@@ -29,6 +29,12 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsTo('App\Entities\Role','role_id');
+        return $this->belongsTo('App\Entities\Role', 'role_id');
     }
+
+    public function appointments()
+    {
+        return $this->hasMany('App\Entities\Appointment', 'user_id');
+    }
+
 }

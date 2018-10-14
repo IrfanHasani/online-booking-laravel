@@ -5,7 +5,7 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Role extends Model
+class Appointment extends Model
 {
     use Notifiable;
 
@@ -15,11 +15,16 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'employee_id', 'user_id', 'start_time', 'finish_time', 'comments'
     ];
+
+    public function employee()
+    {
+        return $this->belongsTo('App\Entities\Employee', 'employee_id');
+    }
 
     public function user()
     {
-        return $this->hasMany('App\Entities\User','role_id');
+        return $this->belongsTo('App\Entities\User', 'user_id');
     }
 }
