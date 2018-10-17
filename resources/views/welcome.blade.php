@@ -7,7 +7,7 @@
     <title>Online Booking | Welcome</title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/fonts/simple-line-icons.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/welcome.css">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 
@@ -70,6 +70,8 @@
                         </div>
                     </div>
 
+                    <div class="top-row">
+
                     <div class="field-wrap">
                         <label>
                             Phone Number<span class="req">*</span>
@@ -83,6 +85,9 @@
                         </label>
                         <input type="email" required="" autocomplete="off">
                     </div>
+                    </div>
+
+                    <div class="top-row">
 
                     <div class="field-wrap">
                         <label>
@@ -96,6 +101,7 @@
                             Confirm Password<span class="req">*</span>
                         </label>
                         <input type="password" name="password_confirmation" required="" autocomplete="off">
+                    </div>
                     </div>
 
                     <button type="submit" class="button button-block">Get Started</button>

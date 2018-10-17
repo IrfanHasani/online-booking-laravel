@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 
 Route::resource('users','UserController');
+
+Route::get('dashboard', function (){
+   return view('dashboard');
+});
