@@ -2,9 +2,7 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Booking | Welcome</title>
+    @include('layouts.head',['title'=>'Welcome'])
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/fonts/simple-line-icons.min.css">
     <link rel="stylesheet" href="/css/welcome.css">
