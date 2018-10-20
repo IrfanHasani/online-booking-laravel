@@ -23,7 +23,7 @@ final class GlobalState
         '_COOKIE',
         '_SERVER',
         '_FILES',
-        '_REQUEST'
+        '_REQUEST',
     ];
 
     public static function getIncludedFilesAsString(): string
@@ -33,8 +33,6 @@ final class GlobalState
 
     /**
      * @param string[] $files
-     *
-     * @return string
      */
     public static function processIncludedFilesAsString(array $files): string
     {
@@ -131,7 +129,7 @@ final class GlobalState
         $blacklist[] = 'GLOBALS';
 
         foreach (\array_keys($GLOBALS) as $key) {
-            if (!$GLOBALS[$key] instanceof Closure && !\in_array($key, $blacklist)) {
+            if (!$GLOBALS[$key] instanceof Closure && !\in_array($key, $blacklist, true)) {
                 $result .= \sprintf(
                     '$GLOBALS[\'%s\'] = %s;' . "\n",
                     $key,
@@ -153,11 +151,6 @@ final class GlobalState
         return 'unserialize(' . \var_export(\serialize($variable), true) . ')';
     }
 
-    /**
-     * @param array $array
-     *
-     * @return bool
-     */
     private static function arrayOnlyContainsScalars(array $array): bool
     {
         $result = true;

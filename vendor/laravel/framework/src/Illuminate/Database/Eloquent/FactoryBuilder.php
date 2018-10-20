@@ -118,6 +118,17 @@ class FactoryBuilder
     }
 
     /**
+     * Set the state to be applied to the model.
+     *
+     * @param  string  $state
+     * @return $this
+     */
+    public function state($state)
+    {
+        return $this->states([$state]);
+    }
+
+    /**
      * Set the states to be applied to the model.
      *
      * @param  array|mixed  $states
@@ -300,6 +311,10 @@ class FactoryBuilder
     {
         foreach ($this->activeStates as $state) {
             if (! isset($this->states[$this->class][$state])) {
+                if ($this->stateHasAfterCallback($state)) {
+                    continue;
+                }
+
                 throw new InvalidArgumentException("Unable to locate [{$state}] state for [{$this->class}].");
             }
 
@@ -366,13 +381,7 @@ class FactoryBuilder
      */
     public function callAfterMaking($models)
     {
-        $models->each(function ($model) {
-            if (isset($this->afterMaking[$this->class])) {
-                foreach ($this->afterMaking[$this->class] as $callback) {
-                    $callback($model, $this->faker);
-                }
-            }
-        });
+        $this->callAfter($this->afterMaking, $models);
     }
 
     /**
@@ -383,12 +392,55 @@ class FactoryBuilder
      */
     public function callAfterCreating($models)
     {
-        $models->each(function ($model) {
-            if (isset($this->afterCreating[$this->class])) {
-                foreach ($this->afterCreating[$this->class] as $callback) {
-                    $callback($model, $this->faker);
-                }
+        $this->callAfter($this->afterCreating, $models);
+    }
+
+    /**
+     * Call after callbacks for each model and state.
+     *
+     * @param  array  $afterCallbacks
+     * @param  \Illuminate\Support\Collection  $models
+     * @return void
+     */
+    protected function callAfter(array $afterCallbacks, $models)
+    {
+        $states = array_merge([$this->name], $this->activeStates);
+
+        $models->each(function ($model) use ($states, $afterCallbacks) {
+            foreach ($states as $state) {
+                $this->callAfterCallbacks($afterCallbacks, $model, $state);
             }
         });
+    }
+
+    /**
+     * Call after callbacks for each model and state.
+     *
+     * @param  array  $afterCallbacks
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $state
+     * @return void
+     */
+    protected function callAfterCallbacks(array $afterCallbacks, $model, $state)
+    {
+        if (! isset($afterCallbacks[$this->class][$state])) {
+            return;
+        }
+
+        foreach ($afterCallbacks[$this->class][$state] as $callback) {
+            $callback($model, $this->faker);
+        }
+    }
+
+    /**
+     * Determine if the given state has an "after" callback.
+     *
+     * @param  string  $state
+     * @return bool
+     */
+    protected function stateHasAfterCallback($state)
+    {
+        return isset($this->afterMaking[$this->class][$state]) ||
+               isset($this->afterCreating[$this->class][$state]);
     }
 }

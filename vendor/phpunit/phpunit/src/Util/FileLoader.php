@@ -24,16 +24,12 @@ final class FileLoader
      * PHP prioritizes the include_path setting, so if the current directory is in there, it will first look in the
      * current working directory.
      *
-     * @param string $filename
-     *
      * @throws Exception
-     *
-     * @return string
      */
     public static function checkAndLoad(string $filename): string
     {
         $includePathFilename = \stream_resolve_include_path($filename);
-        $localFile           = __DIR__ . DIRECTORY_SEPARATOR . $filename;
+        $localFile           = __DIR__ . \DIRECTORY_SEPARATOR . $filename;
 
         /**
          * @see https://github.com/sebastianbergmann/phpunit/pull/2751
@@ -53,8 +49,6 @@ final class FileLoader
 
     /**
      * Loads a PHP sourcefile.
-     *
-     * @param string $filename
      */
     public static function load(string $filename): void
     {

@@ -7,7 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace PHPUnit\Util;
 
 final class Type
@@ -18,6 +17,7 @@ final class Type
             case 'numeric':
             case 'integer':
             case 'int':
+            case 'iterable':
             case 'float':
             case 'string':
             case 'boolean':

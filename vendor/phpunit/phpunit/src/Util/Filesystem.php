@@ -7,7 +7,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace PHPUnit\Util;
 
 /**
@@ -19,16 +18,12 @@ final class Filesystem
      * Maps class names to source file names:
      *   - PEAR CS:   Foo_Bar_Baz -> Foo/Bar/Baz.php
      *   - Namespace: Foo\Bar\Baz -> Foo/Bar/Baz.php
-     *
-     * @param string $className
-     *
-     * @return string
      */
     public static function classNameToFilename(string $className): string
     {
         return \str_replace(
             ['_', '\\'],
-            DIRECTORY_SEPARATOR,
+            \DIRECTORY_SEPARATOR,
             $className
         ) . '.php';
     }

@@ -19,13 +19,10 @@
                     </a>
                     <ul class="nested-menu">
                         <li>
-                            <a href="#">Add Customers</a>
+                            <a href="#">All</a>
                         </li>
                         <li>
-                            <a href="#">Groups</a>
-                        </li>
-                        <li>
-                            <a href="#">List</a>
+                            <a href="#">Create</a>
                         </li>
                     </ul>
                 </li>
@@ -99,18 +96,6 @@
             </div>
         </div>
     </div>
-    <div class="header-content">
-        <div class="container-fluid">
-            <div class="row col-xs-12 clearfix">
-                <div class="icon">
-                    <i class="fa fa-tachometer" aria-hidden="true"></i>
-                </div>
-                <div class="header-title">
-                    <h2>Admin Dashboard</h2>
-                    <p>Very detailed & featured admin.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </header>
 <!-- /header -->

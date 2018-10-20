@@ -101,8 +101,7 @@ class JUnit extends Printer implements TestListener
     /**
      * Constructor.
      *
-     * @param mixed $out
-     * @param bool  $reportUselessTests
+     * @param null|mixed $out
      *
      * @throws \PHPUnit\Framework\Exception
      */
@@ -134,10 +133,6 @@ class JUnit extends Printer implements TestListener
     /**
      * An error occurred.
      *
-     * @param Test       $test
-     * @param \Throwable $t
-     * @param float      $time
-     *
      * @throws \InvalidArgumentException
      */
     public function addError(Test $test, \Throwable $t, float $time): void
@@ -148,10 +143,6 @@ class JUnit extends Printer implements TestListener
 
     /**
      * A warning occurred.
-     *
-     * @param Test    $test
-     * @param Warning $e
-     * @param float   $time
      *
      * @throws \InvalidArgumentException
      */
@@ -164,10 +155,6 @@ class JUnit extends Printer implements TestListener
     /**
      * A failure occurred.
      *
-     * @param Test                 $test
-     * @param AssertionFailedError $e
-     * @param float                $time
-     *
      * @throws \InvalidArgumentException
      */
     public function addFailure(Test $test, AssertionFailedError $e, float $time): void
@@ -178,10 +165,6 @@ class JUnit extends Printer implements TestListener
 
     /**
      * Incomplete test.
-     *
-     * @param Test       $test
-     * @param \Throwable $t
-     * @param float      $time
      */
     public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
     {
@@ -190,10 +173,6 @@ class JUnit extends Printer implements TestListener
 
     /**
      * Risky test.
-     *
-     * @param Test       $test
-     * @param \Throwable $t
-     * @param float      $time
      */
     public function addRiskyTest(Test $test, \Throwable $t, float $time): void
     {
@@ -218,10 +197,6 @@ class JUnit extends Printer implements TestListener
 
     /**
      * Skipped test.
-     *
-     * @param Test       $test
-     * @param \Throwable $t
-     * @param float      $time
      */
     public function addSkippedTest(Test $test, \Throwable $t, float $time): void
     {
@@ -230,8 +205,6 @@ class JUnit extends Printer implements TestListener
 
     /**
      * A testsuite started.
-     *
-     * @param TestSuite $suite
      */
     public function startTestSuite(TestSuite $suite): void
     {
@@ -265,8 +238,6 @@ class JUnit extends Printer implements TestListener
 
     /**
      * A testsuite ended.
-     *
-     * @param TestSuite $suite
      */
     public function endTestSuite(TestSuite $suite): void
     {
@@ -315,27 +286,28 @@ class JUnit extends Printer implements TestListener
     /**
      * A test started.
      *
-     * @param Test $test
-     *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ReflectionException
      */
     public function startTest(Test $test): void
     {
+        if (!$test instanceof TestCase) {
+            return;
+        }
+
         $testCase = $this->document->createElement('testcase');
         $testCase->setAttribute('name', $test->getName());
 
-        if ($test instanceof TestCase) {
-            $class      = new ReflectionClass($test);
-            $methodName = $test->getName(!$test->usesDataProvider());
+        $class      = new ReflectionClass($test);
+        $methodName = $test->getName(!$test->usesDataProvider());
 
-            if ($class->hasMethod($methodName)) {
-                $method = $class->getMethod($methodName);
+        if ($class->hasMethod($methodName)) {
+            $method = $class->getMethod($methodName);
 
-                $testCase->setAttribute('class', $class->getName());
-                $testCase->setAttribute('classname', \str_replace('\\', '.', $class->getName()));
-                $testCase->setAttribute('file', $class->getFileName());
-                $testCase->setAttribute('line', $method->getStartLine());
-            }
+            $testCase->setAttribute('class', $class->getName());
+            $testCase->setAttribute('classname', \str_replace('\\', '.', $class->getName()));
+            $testCase->setAttribute('file', $class->getFileName());
+            $testCase->setAttribute('line', $method->getStartLine());
         }
 
         $this->currentTestCase = $testCase;
@@ -343,21 +315,20 @@ class JUnit extends Printer implements TestListener
 
     /**
      * A test ended.
-     *
-     * @param Test  $test
-     * @param float $time
      */
     public function endTest(Test $test, float $time): void
     {
-        if ($test instanceof TestCase) {
-            $numAssertions = $test->getNumAssertions();
-            $this->testSuiteAssertions[$this->testSuiteLevel] += $numAssertions;
-
-            $this->currentTestCase->setAttribute(
-                'assertions',
-                $numAssertions
-            );
+        if (!$test instanceof TestCase) {
+            return;
         }
+
+        $numAssertions = $test->getNumAssertions();
+        $this->testSuiteAssertions[$this->testSuiteLevel] += $numAssertions;
+
+        $this->currentTestCase->setAttribute(
+            'assertions',
+            $numAssertions
+        );
 
         $this->currentTestCase->setAttribute(
             'time',
@@ -371,7 +342,7 @@ class JUnit extends Printer implements TestListener
         $this->testSuiteTests[$this->testSuiteLevel]++;
         $this->testSuiteTimes[$this->testSuiteLevel] += $time;
 
-        if (\method_exists($test, 'hasOutput') && $test->hasOutput()) {
+        if ($test->hasOutput()) {
             $systemOut = $this->document->createElement(
                 'system-out',
                 Xml::prepareString($test->getActualOutput())
@@ -385,8 +356,6 @@ class JUnit extends Printer implements TestListener
 
     /**
      * Returns the XML as a string.
-     *
-     * @return string
      */
     public function getXML(): string
     {
@@ -399,12 +368,8 @@ class JUnit extends Printer implements TestListener
      *
      * This is a "hack" needed for the integration of
      * PHPUnit with Phing.
-     *
-     * @param mixed $flag
-     *
-     * @return string
      */
-    public function setWriteDocument($flag): ?string
+    public function setWriteDocument(/*bool*/ $flag): void
     {
         if (\is_bool($flag)) {
             $this->writeDocument = $flag;
@@ -414,14 +379,9 @@ class JUnit extends Printer implements TestListener
     /**
      * Method which generalizes addError() and addFailure()
      *
-     * @param Test       $test
-     * @param \Throwable $t
-     * @param float      $time
-     * @param string     $type
-     *
      * @throws \InvalidArgumentException
      */
-    private function doAddFault(Test $test, \Throwable $t, $time, $type): void
+    private function doAddFault(Test $test, \Throwable $t, float $time, $type): void
     {
         if ($this->currentTestCase === null) {
             return;

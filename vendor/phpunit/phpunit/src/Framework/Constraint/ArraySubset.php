@@ -21,7 +21,7 @@ use SebastianBergmann\Comparator\ComparisonFailure;
 class ArraySubset extends Constraint
 {
     /**
-     * @var array|\Traversable
+     * @var iterable
      */
     private $subset;
 
@@ -30,11 +30,7 @@ class ArraySubset extends Constraint
      */
     private $strict;
 
-    /**
-     * @param array|\Traversable $subset
-     * @param bool               $strict Check for object identity
-     */
-    public function __construct($subset, $strict = false)
+    public function __construct(iterable $subset, bool $strict = false)
     {
         parent::__construct();
 
@@ -58,8 +54,6 @@ class ArraySubset extends Constraint
      *
      * @throws ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return mixed
      */
     public function evaluate($other, $description = '', $returnResult = false)
     {
@@ -84,8 +78,8 @@ class ArraySubset extends Constraint
             $f = new ComparisonFailure(
                 $patched,
                 $other,
-                \print_r($patched, true),
-                \print_r($other, true)
+                \var_export($patched, true),
+                \var_export($other, true)
             );
 
             $this->fail($other, $description, $f);
@@ -96,8 +90,6 @@ class ArraySubset extends Constraint
      * Returns a string representation of the constraint.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return string
      */
     public function toString(): string
     {
@@ -113,20 +105,13 @@ class ArraySubset extends Constraint
      * @param mixed $other evaluated value or object
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     *
-     * @return string
      */
     protected function failureDescription($other): string
     {
         return 'an array ' . $this->toString();
     }
 
-    /**
-     * @param array|\Traversable $other
-     *
-     * @return array
-     */
-    private function toArray($other): array
+    private function toArray(iterable $other): array
     {
         if (\is_array($other)) {
             return $other;

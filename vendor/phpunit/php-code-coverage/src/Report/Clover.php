@@ -7,11 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\CodeCoverage\Report;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Node\File;
+use SebastianBergmann\CodeCoverage\RuntimeException;
 
 /**
  * Generates a Clover XML logfile from a code coverage object.
@@ -90,7 +90,7 @@ final class Clover
                         'crap'        => $method['crap'],
                         'type'        => 'method',
                         'visibility'  => $method['visibility'],
-                        'name'        => $methodName
+                        'name'        => $methodName,
                     ];
                 }
 
@@ -151,7 +151,7 @@ final class Clover
                 }
 
                 $lines[$line] = [
-                    'count' => \count($data), 'type' => 'stmt'
+                    'count' => \count($data), 'type' => 'stmt',
                 ];
             }
 
@@ -234,13 +234,25 @@ final class Clover
         $buffer = $xmlDocument->saveXML();
 
         if ($target !== null) {
-            if (!@\mkdir(\dirname($target), 0777, true) && !\is_dir(\dirname($target))) {
+            if (!$this->createDirectory(\dirname($target))) {
                 throw new \RuntimeException(\sprintf('Directory "%s" was not created', \dirname($target)));
             }
 
-            \file_put_contents($target, $buffer);
+            if (@\file_put_contents($target, $buffer) === false) {
+                throw new RuntimeException(
+                    \sprintf(
+                        'Could not write to "%s',
+                        $target
+                    )
+                );
+            }
         }
 
         return $buffer;
+    }
+
+    private function createDirectory(string $directory): bool
+    {
+        return !(!\is_dir($directory) && !@\mkdir($directory, 0777, true) && !\is_dir($directory));
     }
 }

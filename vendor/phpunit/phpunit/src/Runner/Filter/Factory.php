@@ -23,9 +23,6 @@ class Factory
     private $filters = [];
 
     /**
-     * @param ReflectionClass $filter
-     * @param mixed           $args
-     *
      * @throws InvalidArgumentException
      */
     public function addFilter(ReflectionClass $filter, $args): void
@@ -42,9 +39,6 @@ class Factory
         $this->filters[] = [$filter, $args];
     }
 
-    /**
-     * @return FilterIterator
-     */
     public function factory(Iterator $iterator, TestSuite $suite): FilterIterator
     {
         foreach ($this->filters as $filter) {

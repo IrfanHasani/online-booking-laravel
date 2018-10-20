@@ -33,34 +33,16 @@ class ExceptionWrapper extends Exception
      */
     protected $previous;
 
-    /**
-     * @param Throwable $t
-     */
     public function __construct(Throwable $t)
     {
         // PDOException::getCode() is a string.
-        // @see http://php.net/manual/en/class.pdoexception.php#95812
+        // @see https://php.net/manual/en/class.pdoexception.php#95812
         parent::__construct($t->getMessage(), (int) $t->getCode());
-
-        $this->className = \get_class($t);
-        $this->file      = $t->getFile();
-        $this->line      = $t->getLine();
-
-        $this->serializableTrace = $t->getTrace();
-
-        foreach ($this->serializableTrace as $i => $call) {
-            unset($this->serializableTrace[$i]['args']);
-        }
-
-        if ($t->getPrevious()) {
-            $this->previous = new self($t->getPrevious());
-        }
+        $this->setOriginalException($t);
     }
 
     /**
      * @throws \InvalidArgumentException
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -77,19 +59,60 @@ class ExceptionWrapper extends Exception
         return $string;
     }
 
-    /**
-     * @return string
-     */
     public function getClassName(): string
     {
         return $this->className;
     }
 
-    /**
-     * @return ExceptionWrapper
-     */
     public function getPreviousWrapped(): ?self
     {
         return $this->previous;
+    }
+
+    public function setClassName(string $className): void
+    {
+        $this->className = $className;
+    }
+
+    public function setOriginalException(\Throwable $t): void
+    {
+        $this->originalException($t);
+
+        $this->className = \get_class($t);
+        $this->file      = $t->getFile();
+        $this->line      = $t->getLine();
+
+        $this->serializableTrace = $t->getTrace();
+
+        foreach ($this->serializableTrace as $i => $call) {
+            unset($this->serializableTrace[$i]['args']);
+        }
+
+        if ($t->getPrevious()) {
+            $this->previous = new self($t->getPrevious());
+        }
+    }
+
+    public function getOriginalException(): ?Throwable
+    {
+        return $this->originalException();
+    }
+
+    /**
+     * Method to contain static originalException to exclude it from stacktrace to prevent the stacktrace contents,
+     * which can be quite big, from being garbage-collected, thus blocking memory until shutdown.
+     * Approach works both for var_dump() and var_export() and print_r()
+     */
+    private function originalException(Throwable $exceptionToStore = null): ?Throwable
+    {
+        static $originalExceptions;
+
+        $instanceId = \spl_object_hash($this);
+
+        if ($exceptionToStore) {
+            $originalExceptions[$instanceId] = $exceptionToStore;
+        }
+
+        return $originalExceptions[$instanceId] ?? null;
     }
 }
