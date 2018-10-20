@@ -8,13 +8,24 @@
         <nav class="aside-menu">
             <ul>
                 <li>
-                    <a href="/dashboard.html"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
+                    <a href="{{ route('dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a>
                 </li>
 
+            </ul>
+
+            <ul>
                 <li>
-                    <a href="#" class="toggle-menu">
+                    <a href="{{ route('customers.index') }}" class="">
                         <i class="fa fa-users" aria-hidden="true"></i>
                         <span>Customers</span>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="{{ route('customers.index') }}" class="toggle-menu">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span>Employees</span>
                         <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
                     </a>
                     <ul class="nested-menu">
@@ -26,6 +37,7 @@
                         </li>
                     </ul>
                 </li>
+
             </ul>
             <ul>
                 <li>
@@ -72,6 +84,7 @@
                         <li class="dropdown">
                             <a data-toggle="dropdown">
                                 <i class="fa fa-cog" aria-hidden="true"></i>
+                            </a>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fa fa-wifi" aria-hidden="true"></i>Wi-fi</a></li>

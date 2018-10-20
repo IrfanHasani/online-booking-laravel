@@ -29,4 +29,15 @@ class UserService implements IUserService
     {
         return $this->userRepository->insert($user);
     }
+    /**
+     * Delete specific user
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function delete($id)
+    {
+        return $this->userRepository->delete($id);
+    }
+
 }

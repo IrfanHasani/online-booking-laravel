@@ -20,4 +20,7 @@ interface IUserService
     public function getById($id);
 
     public function insert(User $user);
+
+    public function delete($id);
+
 }

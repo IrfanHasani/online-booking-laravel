@@ -24,18 +24,18 @@
     <section class="monitor padding-space-half">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-6 col-mobile">
+                <a href="{{route('customers.index')}}"><div class="col-md-3 col-sm-6 col-xs-6 col-mobile">
                     <div class="monitor-box relative">
                         <div class="icon">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>
                         </div>
-                        <h4>Clients</h4>
+                        <h4>Customers</h4>
 
                         <div class="count-number">
                             <p>11 <i class="fa fa-long-arrow-up" aria-hidden="true"></i></p>
                         </div>
                     </div>
-                </div>
+                </div><a/>
                 <div class="col-md-3 col-sm-6 col-xs-6 col-mobile">
                     <div class="monitor-box relative">
                         <div class="icon">

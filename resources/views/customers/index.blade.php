@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('head')
-    @include('includes.head',['title'=>'Dashboard'])
+    @include('includes.head',['title'=>'Customers'])
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Datepicker -->
@@ -51,8 +51,11 @@
                                 <td>{{ $customer->last_name }}</td>
                                 <td>{{ $customer->email }}</td>
                                 <td>{{ $customer->phone }}</td>
-                                <td style="text-align:right"><button type="button" class="btn btn-default btn-lg">
+                                {!! Form::open(['method' => 'DELETE','route' => ['customers.destroy', $customer->id],'style'=>'display:inline']) !!}
+                                <td style="text-align:right"><button type="submit" class="btn btn-default btn-lg">
                                         <span class="glyphicon glyphicon-remove"></span> Delete</button> </td>
+                                {!! Form::close() !!}
+
                             </tr>
                             @php
                                 $i++;

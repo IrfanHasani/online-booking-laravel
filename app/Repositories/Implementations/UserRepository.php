@@ -28,4 +28,9 @@ class UserRepository implements IUserRepository
         $user->save();
         return $user;
     }
+
+    public function delete($id)
+    {
+        return $this->getById($id)->delete();
+    }
 }

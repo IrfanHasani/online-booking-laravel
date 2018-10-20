@@ -91,6 +91,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->userService->delete($id);
+        return redirect()->route('customers.index');
     }
 }

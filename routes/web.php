@@ -16,7 +16,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::resource('users','UserController');
-Route::resource('customers','CustomerController');
+Route::resource('customers','CustomerController')->middleware('auth');
 
 Route::get('dashboard', function (){
    return view('dashboard');
