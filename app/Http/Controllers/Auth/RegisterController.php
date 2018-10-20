@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Entities\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+
+use App\Entities\User;
+use App\Http\Requests\RegisterValidation;
+use App\Http\Services\Interfaces\IRegisterService;
 
 class RegisterController extends Controller
 {
@@ -21,52 +21,35 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
-
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+
+    protected $registerService;
 
     /**
-     * Create a new controller instance.
+     * RegisterController constructor.
      *
-     * @return void
+     * @param IRegisterService $registerService
      */
-    public function __construct()
+    public function __construct(IRegisterService $registerService)
     {
-        $this->middleware('guest');
+        $this->registerService = $registerService;
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\Entities\User
+     * @param RegisterValidation $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    protected function create(array $data)
+    protected function store(RegisterValidation $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $this->registerService->insert(new User($request->all()));
+        session()->flash('message','Your registration is completed. Please check your email address to confirm.');
+        return route('welcome');
     }
 }

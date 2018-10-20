@@ -13,10 +13,12 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::resource('users','UserController');
 
 Route::get('dashboard', function (){
    return view('dashboard');
-});
+})->name('dashboard');
+
+Route::post('register','Auth\RegisterController@store')->name('register');

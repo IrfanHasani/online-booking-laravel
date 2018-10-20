@@ -5,7 +5,7 @@
 </head>
 <body class="page dashboard-page fullscreen relative">
 <main class="dashboard-content relative">
-@include('layouts.sidebar-and-header')
+@include('includes.sidebar-and-header')
     <!-- /content -->
     @yield('content')
     <!-- content -->

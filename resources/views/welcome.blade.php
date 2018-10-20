@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    @include('layouts.head',['title'=>'Welcome'])
+    @include('includes.head',['title'=>'Welcome'])
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/fonts/simple-line-icons.min.css">
     <link rel="stylesheet" href="/css/welcome.css">
@@ -15,9 +15,11 @@
     <div class="form">
 
         <ul class="tab-group">
-            <li class="tab active"><a href="#login">Log In</a></li>
-            <li class="tab"><a href="#signup">Sign Up</a></li>
+            <li class="tab active login"><a href="#login">Log In</a></li>
+            <li class="tab signup"><a href="#signup">Sign Up</a></li>
         </ul>
+        @include('includes.message-block')
+
 
         <div class="tab-content">
             <div id="login">
@@ -49,9 +51,8 @@
 
             <div id="signup">
                 <h1>Create Account</h1>
-
-                <form action="/" method="post">
-
+                <form action="{{ route('register') }}" method="post" id="sign-up-form">
+                    {{ csrf_field() }}
                     <div class="top-row">
                         <div class="field-wrap">
                             <label>
@@ -74,14 +75,14 @@
                         <label>
                             Phone Number<span class="req">*</span>
                         </label>
-                        <input type="phone" required="" autocomplete="off">
+                        <input type="tel"  name="phone" required="" autocomplete="off">
                     </div>
 
                     <div class="field-wrap">
                         <label>
                             Email Address<span class="req">*</span>
                         </label>
-                        <input type="email" required="" autocomplete="off">
+                        <input type="email" name="email" required="" autocomplete="off">
                     </div>
                     </div>
 
@@ -91,7 +92,7 @@
                         <label>
                             Password<span class="req">*</span>
                         </label>
-                        <input type="password" required="" autocomplete="off">
+                        <input type="password" name="password" required="" autocomplete="off">
                     </div>
 
                     <div class="field-wrap">
@@ -105,7 +106,6 @@
                     <button type="submit" class="button button-block">Get Started</button>
 
                 </form>
-
             </div>
 
         </div><!-- tab-content -->

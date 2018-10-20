@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: USER
- * Date: 3/3/2018
- * Time: 6:07 PM
- */
 
 namespace App\Repositories\Implementations;
 
@@ -31,6 +25,7 @@ class UserRepository implements IUserRepository
     public function insert(User $user)
     {
         $user->password = bcrypt($user->password);
-        return $user->save();
+        $user->save();
+        return $user;
     }
 }

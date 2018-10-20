@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Entities\User;
-use App\Http\Requests\UserValidation;
+use App\Http\Requests\RegisterValidation;
 use App\Http\Services\Interfaces\IUserService;
 use Illuminate\Http\Request;
 use App\View;
@@ -42,7 +42,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserValidation $request)
+    public function store(RegisterValidation $request)
     {
         //TODO
     }

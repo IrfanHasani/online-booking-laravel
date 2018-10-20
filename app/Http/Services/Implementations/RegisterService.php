@@ -1,12 +1,19 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: irfan
+ * Date: 18-10-20
+ * Time: 5.34.MD
+ */
 
 namespace App\Http\Services\Implementations;
 
+
 use App\Entities\User;
-use App\Http\Services\Interfaces\IUserService;
+use App\Http\Services\Interfaces\IRegisterService;
 use App\Repositories\Interfaces\IUserRepository;
 
-class UserService implements IUserService
+class RegisterService implements IRegisterService
 {
     protected $userRepository;
 
@@ -15,18 +22,11 @@ class UserService implements IUserService
         $this->userRepository = $userRepository;
     }
 
-    public function get()
-    {
-        return $this->userRepository->get();
-    }
-
-    public function getById($id)
-    {
-        return $this->userRepository->getById($id);
-    }
-
     public function insert(User $user)
     {
+        //client role
+        $user->role_id = 2;
         return $this->userRepository->insert($user);
     }
+
 }

@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class UserValidation extends FormRequest
+class RegisterValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class UserValidation extends FormRequest
      */
     public function authorize()
     {
-        return true;/*return Auth::user()->role->name == 'admin';*/
+        return true;
     }
 
     /**
@@ -27,8 +26,16 @@ class UserValidation extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
+            'phone' => 'required|numeric',
             'email' => 'required|unique:users',
-            'password' => 'required'
+            'password' => 'required|confirmed|min:8|max:20|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/'
         ];
+    }
+
+    public function messages()
+    {
+       return [
+         'password.regex' => 'Password must contain: upper case, lower case, number and special character',
+       ];
     }
 }

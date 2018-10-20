@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('head')
-            @include('layouts.head',['title'=>'Dashboard'])
+            @include('includes.head',['title'=>'Dashboard'])
             <!-- Bootstrap -->
             <link href="/css/bootstrap.min.css" rel="stylesheet">
             <!-- Bootstrap Datepicker -->

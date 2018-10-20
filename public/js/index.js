@@ -1,3 +1,5 @@
+
+
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
   
   var $this = $(this),
@@ -28,16 +30,43 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 });
 
 $('.tab a').on('click', function (e) {
-  
-  e.preventDefault();
-  
-  $(this).parent().addClass('active');
-  $(this).parent().siblings().removeClass('active');
-  
-  target = $(this).attr('href');
+    $('.container-of-errors').hide();
+    $(this).parent().addClass('active');
+    $(this).parent().siblings().removeClass('active');
+    if(this.hash === '#login')
+    {
+        $('#signup').hide();
+        $('#login').show();
+    }
+    else {
+        $('#signup').show();
+        $('#login').hide();
+    }
+});
 
-  $('.tab-content > div').not(target).hide();
-  
-  $(target).fadeIn(600);
-  
+$('#sign-up-form').on('submit', function (e) {
+    e.preventDefault();
+    $.ajax({
+        headers: {'X-CSRF-Token': $('input[name=_token]').val()},
+        type: "POST",
+        url: this.action,
+        data: $(this).serialize(),
+        success: function (data) {
+            location.href = data;
+        },
+        error: function (e) {
+            $('.list-of-errors').empty();
+            $('.container-of-errors').show();
+            var errors = e.responseJSON.errors;
+            var keys = Object.keys(errors);
+            $.each(keys, function (index, value) {
+                $('.list-of-errors').empty();
+                var errors = e.responseJSON.errors;
+                var keys = Object.keys(errors);
+                $.each(keys, function (index, value) {
+                    $('.list-of-errors').append('<li>'+value+':'+errors[value]+'</li>'+'<br>');
+                });
+            });
+        }
+    });
 });
