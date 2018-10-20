@@ -25,8 +25,8 @@
             <div id="login">
                 <h1>Hello Please Login</h1>
 
-                <form action="/" method="post">
-
+                <form action="{{ route('login') }}" method="post">
+                    {{ csrf_field() }}
                     <div class="field-wrap">
                         <label>
                             Email Address<span class="req">*</span>

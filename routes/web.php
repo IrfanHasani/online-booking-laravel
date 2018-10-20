@@ -19,6 +19,9 @@ Route::resource('users','UserController');
 
 Route::get('dashboard', function (){
    return view('dashboard');
-})->name('dashboard');
+})->name('dashboard')->middleware('auth');
 
 Route::post('register','Auth\RegisterController@store')->name('register');
+
+Route::post('/login','Auth\LoginController@login')->name('login');
+Route::post('/logout','Auth\LoginController@logout')->name('logout');

@@ -88,10 +88,13 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i>User Profile</a></li>
                                 <li><a href="#"><i class="fa fa-inbox" aria-hidden="true"></i>Inbox</a></li>
-                                <li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a></li>
+                                <li><a href="#" onclick="$('#logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a></li>
                             </ul>
                         </li>
                     </ul>
+                    <form id="logout-form" method="post" action="{{route('logout')}}">
+                        {{ csrf_field() }}
+                    </form>
                 </div>
             </div>
         </div>

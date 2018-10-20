@@ -31,6 +31,7 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
 
 $('.tab a').on('click', function (e) {
     $('.container-of-errors').hide();
+   // $('.list-of-all-errors').hide();
     $(this).parent().addClass('active');
     $(this).parent().siblings().removeClass('active');
     if(this.hash === '#login')
