@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Employee;
+use App\Http\Requests\EmployeeValidation;
+use App\Http\Services\Interfaces\IEmployeeService;
+use App\Traits\Pagination;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    use Pagination;
+
+    protected $employeeService;
+
+    public function __construct(IEmployeeService $employeeService)
+    {
+        $this->employeeService = $employeeService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //TODO
+        $employees = $this->paginate( $this->employeeService->get(), $this->limitOfPagination());
+        return view('employees.index', compact('employees'));
     }
 
     /**
@@ -24,7 +37,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //TODO
+        return view('employees.create');
     }
 
     /**
@@ -33,9 +46,11 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeValidation $request)
     {
-        //TODO
+       $this->employeeService->insert(new Employee($request->all()));
+       session()->flash('message','You have successfully created an employee');
+       return redirect()->route('employees.index');
     }
 
     /**
@@ -57,7 +72,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //TODO
+        return view('employees.edit',compact('employee'));
     }
 
     /**
@@ -67,9 +82,11 @@ class EmployeeController extends Controller
      * @param  \App\Entities\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(EmployeeValidation $request, Employee $employee)
     {
-        //TODO
+        $this->employeeService->update($employee->fill($request->all()));
+        session()->flash('message','You have successfully edited an employee');
+        return redirect()->route('employees.index');
     }
 
     /**
@@ -80,6 +97,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //TODO
+        $this->employeeService->delete($employee->id);
+        session()->flash('message','You have successfully deleted an employee');
+        return redirect()->route('employees.index');
     }
 }

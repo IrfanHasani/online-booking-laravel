@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('head')
-    @include('includes.head',['title'=>'Customers'])
+    @include('includes.head',['title'=>'Employees'])
     <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Datepicker -->
@@ -21,10 +21,11 @@
 @endsection
 <!-- monitor -->
 @section('content')
+    @include('includes.message-block')
     <div class="col-sm-12 col-mobile">
         <div class="board-box">
             <div class="board-title">
-                <h2>List of all customers</h2>
+                <h2>List of all employees <a href="{{ route('employees.create') }}" class="add-new-employee"><span  style="float: right;padding-right: 20px;" class="fa fa-plus"></span></a></h2>
             </div>
 
             <div class="table-style">
@@ -37,22 +38,25 @@
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Phone</th>
-                            <th></th>
+                            <th class="custom-column"></th>
+                            <th class="custom-column"></th>
                         </tr>
                         </thead>
                         <tbody>
                         @php
                             $i=1;
                         @endphp
-                        @foreach($customers as $customer)
+                        @foreach($employees as $employee)
                             <tr>
                                 <th>{{$i}}</th>
-                                <td>{{ $customer->first_name }}</td>
-                                <td>{{ $customer->last_name }}</td>
-                                <td>{{ $customer->email }}</td>
-                                <td>{{ $customer->phone }}</td>
-                                {!! Form::open(['method' => 'DELETE','route' => ['customers.destroy', $customer->id],'style'=>'display:inline']) !!}
-                                <td style="text-align:right"><button type="submit" class="btn btn-default btn-lg">
+                                <td>{{ $employee->first_name }}</td>
+                                <td>{{ $employee->last_name }}</td>
+                                <td>{{ $employee->email }}</td>
+                                <td>{{ $employee->phone }}</td>
+                                <td><button class="btn btn-default btn-lg" onclick='window.location.href="{{ route('employees.edit',$employee->id) }}"'>
+                                        <span class="glyphicon glyphicon-edit"></span></button> </td>
+                                {!! Form::open(['method' => 'DELETE','route' => ['employees.destroy', $employee->id]]) !!}
+                                <td><button type="submit" class="btn btn-default btn-lg">
                                         <span class="glyphicon glyphicon-remove"></span></button> </td>
                                 {!! Form::close() !!}
 
@@ -67,7 +71,7 @@
                 </div>
 
                 <nav aria-label="Page navigation" class="my-pagination">
-                    {!! str_replace('/?', '?', $customers->render()) !!}
+                    {!! str_replace('/?', '?', $employees->render()) !!}
                 </nav>
             </div>
         </div>

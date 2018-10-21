@@ -23,9 +23,26 @@
             </ul>
             <ul>
                 <li>
-                    <a href="{{ route('customers.index') }}" class="toggle-menu">
-                        <i class="fa fa-user" aria-hidden="true"></i>
+                    <a href="#" class="toggle-menu">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
                         <span>Employees</span>
+                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                    </a>
+                    <ul class="nested-menu">
+                        <li>
+                            <a href="{{ route('employees.index') }}">All</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('employees.create') }}">Create</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="#" class="toggle-menu">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                        <span>My bookings</span>
                         <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
                     </a>
                     <ul class="nested-menu">
@@ -37,30 +54,20 @@
                         </li>
                     </ul>
                 </li>
-
-            </ul>
-            <ul>
-                <li>
-                    <a href="#" class="toggle-menu">
-                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                        <span>My bookings</span>
-                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
-                    </a>
-                </li>
             </ul>
             <ul>
                 <li>
                     <a href="#" class="toggle-menu">
                         <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                        <span>Report</span>
+                        <span>Services</span>
                         <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
                     </a>
                     <ul class="nested-menu">
                         <li>
-                            <a href="#">Project Report</a>
+                            <a href="#">All</a>
                         </li>
                         <li>
-                            <a href="#">Client Report</a>
+                            <a href="#">Create</a>
                         </li>
                     </ul>
                 </li>
@@ -109,6 +116,7 @@
             </div>
         </div>
     </div>
+
 
 </header>
 <!-- /header -->
