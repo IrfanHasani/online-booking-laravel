@@ -97,7 +97,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $this->employeeService->delete($employee->id);
+        $this->employeesService->delete($employee->id);
         session()->flash('message','You have successfully deleted an employee');
         return redirect()->route('employees.index');
     }

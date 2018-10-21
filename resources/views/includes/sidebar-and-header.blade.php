@@ -41,16 +41,16 @@
             <ul>
                 <li>
                     <a href="#" class="toggle-menu">
-                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                        <span>My bookings</span>
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                        <span>Services</span>
                         <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
                     </a>
                     <ul class="nested-menu">
                         <li>
-                            <a href="#">All</a>
+                            <a href="{{ route('services.index') }}">All</a>
                         </li>
                         <li>
-                            <a href="#">Create</a>
+                            <a href="{{ route('services.create') }}">Create</a>
                         </li>
                     </ul>
                 </li>
@@ -58,8 +58,8 @@
             <ul>
                 <li>
                     <a href="#" class="toggle-menu">
-                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                        <span>Services</span>
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                        <span>My bookings</span>
                         <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
                     </a>
                     <ul class="nested-menu">

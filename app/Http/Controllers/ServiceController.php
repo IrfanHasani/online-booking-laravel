@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Service;
+use App\Http\Requests\ServiceValidation;
+use App\Http\Services\Interfaces\IService;
+use App\Traits\Pagination;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    use Pagination;
+
+    protected $service;
+
+    public function __construct(IService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //TODO
+        $services = $this->paginate($this->service->get(),$this->limitOfPagination());
+        return view('services.index', compact('services'));
     }
 
     /**
@@ -24,7 +37,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //TODO
+        return view('services.create');
     }
 
     /**
@@ -33,9 +46,11 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServiceValidation $request)
     {
-        //TODO
+        $this->service->insert(new Service($request->all()));
+        session()->flash('message','You have successfully created an employee');
+        return redirect()->route('services.index');
     }
 
     /**
@@ -57,7 +72,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //TODO
+        return view('services.edit',compact('service'));
     }
 
     /**
@@ -67,9 +82,11 @@ class ServiceController extends Controller
      * @param  \App\Entities\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(ServiceValidation $request, Service $service)
     {
-        //TODO
+        $this->service->update($service->fill($request->all()));
+        session()->flash('message','You have successfully edited a service');
+        return redirect()->route('services.index');
     }
 
     /**
@@ -80,6 +97,8 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //TODO
+        $this->service->delete($service->id);
+        session()->flash('message','You have successfully deleted a service');
+        return redirect()->route('services.index');
     }
 }
