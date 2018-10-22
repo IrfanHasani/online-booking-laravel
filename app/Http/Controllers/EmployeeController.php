@@ -6,7 +6,6 @@ use App\Entities\Employee;
 use App\Http\Requests\EmployeeValidation;
 use App\Http\Services\Interfaces\IEmployeeService;
 use App\Traits\Pagination;
-use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -97,7 +96,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $this->employeesService->delete($employee->id);
+        $this->employeeService->delete($employee->id);
         session()->flash('message','You have successfully deleted an employee');
         return redirect()->route('employees.index');
     }

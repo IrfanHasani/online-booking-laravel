@@ -3,10 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Entities\WorkingHour;
+use App\Http\Requests\WorkingHourValidation;
+use App\Http\Services\Interfaces\IEmployeeService;
+use App\Http\Services\Interfaces\IWorkingHourService;
+use App\Traits\Pagination;
 use Illuminate\Http\Request;
 
 class WorkingHourController extends Controller
 {
+    use Pagination;
+
+    protected $employeeService, $workingHourService;
+
+    public function __construct(IWorkingHourService $workingHourService, IEmployeeService $employeeService)
+    {
+        $this->employeeService = $employeeService;
+        $this->workingHourService = $workingHourService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +28,8 @@ class WorkingHourController extends Controller
      */
     public function index()
     {
-        //TODO
+        $workingHours = $this->paginate($this->workingHourService->get(),$this->limitOfPagination());
+        return view('working_hours.index', compact('workingHours'));
     }
 
     /**
@@ -24,7 +39,8 @@ class WorkingHourController extends Controller
      */
     public function create()
     {
-        //TODO
+        $employees = $this->employeeService->get();
+        return view('working_hours.create',compact('employees'));
     }
 
     /**
@@ -33,9 +49,11 @@ class WorkingHourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WorkingHourValidation $request)
     {
-        //TODO
+        $this->workingHourService->insert(new WorkingHour($request->all()));
+        session()->flash('message','You have successfully created a working hour');
+        return redirect()->route('working-hours.index');
     }
 
     /**
@@ -57,7 +75,8 @@ class WorkingHourController extends Controller
      */
     public function edit(WorkingHour $workingHour)
     {
-        //TODO
+        $employees = $this->employeeService->get();
+        return view('working_hours.edit',compact('workingHour','employees'));
     }
 
     /**
@@ -67,9 +86,11 @@ class WorkingHourController extends Controller
      * @param  \App\Entities\WorkingHour  $workingHour
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, WorkingHour $workingHour)
+    public function update(WorkingHourValidation $request, WorkingHour $workingHour)
     {
-        //TODO
+        $this->workingHourService->update($workingHour->fill($request->all()));
+        session()->flash('message','You have successfully edited a working hour');
+        return redirect()->route('working-hours.index');
     }
 
     /**
@@ -80,6 +101,8 @@ class WorkingHourController extends Controller
      */
     public function destroy(WorkingHour $workingHour)
     {
-        //TODO
+        $this->workingHourService->delete($workingHour->id);
+        session()->flash('message','You have successfully deleted a working hour');
+        return redirect()->route('working-hours.index');
     }
 }

@@ -38,6 +38,26 @@
                     </ul>
                 </li>
             </ul>
+
+            <ul>
+                <li>
+                    <a href="#" class="toggle-menu">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                        <span>My bookings</span>
+                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                    </a>
+                    <ul class="nested-menu">
+                        <li>
+                            <a href="#">All</a>
+                        </li>
+                        <li>
+                            <a href="#">Create</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>               </ul>
+                </li>
+            </ul>
             <ul>
                 <li>
                     <a href="#" class="toggle-menu">
@@ -68,6 +88,23 @@
                         </li>
                         <li>
                             <a href="#">Create</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="#" class="toggle-menu">
+                        <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                        <span>Working Hours</span>
+                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                    </a>
+                    <ul class="nested-menu">
+                        <li>
+                            <a href="{{ route('working-hours.index') }}">All</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('working-hours.create') }}">Create</a>
                         </li>
                     </ul>
                 </li>

@@ -17,8 +17,8 @@ class CreateWorkingHoursTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
             $table->date('date');
-            $table->time('start_time');
-            $table->time('finish_time');
+            $table->time('start_time')->format('h:i');
+            $table->time('finish_time')->format('h:i');;
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });

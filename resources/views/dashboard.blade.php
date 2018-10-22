@@ -36,7 +36,9 @@
                         </div>
                     </div>
                 </div><a/>
-                <div class="col-md-3 col-sm-6 col-xs-6 col-mobile">
+
+                <a href="{{ route('employees.index') }}">
+                    <div class="col-md-3 col-sm-6 col-xs-6 col-mobile">
                     <div class="monitor-box relative">
                         <div class="icon">
                             <i class="fa fa-user-secret" aria-hidden="true"></i>
@@ -48,6 +50,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
 
                 <div class="col-md-3 col-sm-6 col-xs-6 col-mobile">
                     <div class="monitor-box relative">

@@ -19,6 +19,7 @@ Route::resource('users','UserController');
 Route::resource('customers','CustomerController')->middleware('auth');
 Route::resource('employees','EmployeeController')->middleware('auth');
 Route::resource('services','ServiceController')->middleware('auth');
+Route::resource('working-hours','WorkingHourController')->middleware('auth');
 
 Route::get('dashboard', function (){
    return view('dashboard');
