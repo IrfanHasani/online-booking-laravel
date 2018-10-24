@@ -15,8 +15,10 @@
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
             <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+         <!--   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+            <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
+
             <![endif]-->
 @endsection
 <!-- monitor -->
@@ -82,27 +84,37 @@
     <!-- /monitor -->
     <!-- calendar -->
     <section class="board calendar padding-space-half">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="board-box">
-                        <div class="board-title">
-                            <h4>Calendar</h4>
-                        </div>
-                        <div class="calendar-wrapper">
-                            <div id="calendar"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <span style="margin-left:30px"><button class="btn btn-default custom-btn btn-inline">ADD NEW</button></span>
+        <div id="appointment-calendar" style="margin-top: 20px;margin-left: 30px;width: 95%"></div>
     </section>
     <!-- /calendar -->
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+
+    <script>
+        $(document).ready(function() {
+            // page is now ready, initialize the calendar...
+            $('#appointment-calendar').fullCalendar({
+                height:750,
+                header: { center: 'month,agendaWeek,list' },
+                events : [
+                        @foreach($appointments as $appointment)
+                    {
+                        title : '{{ $appointment->user->first_name. ' '. $appointment->user->last_name }}',
+                        start : '{{ $appointment->start_time }}',
+                        end : '{{ $appointment->finish_time }}',
+                        backgroundColor:'#3e4140',
+                    },
+                    @endforeach
+                ]
+            })
+        });
+    </script>
 @endsection
 
 @section('scripts')
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/js/jquery-3.2.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
     <!-- Moment -->

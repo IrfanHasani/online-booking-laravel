@@ -22,10 +22,17 @@ Route::resource('services','ServiceController')->middleware('auth');
 Route::resource('working-hours','WorkingHourController')->middleware('auth');
 
 Route::get('dashboard', function (){
-   return view('dashboard');
+    $appointments = \App\Entities\Appointment::all();
+   return view('dashboard', compact('appointments'));
 })->name('dashboard')->middleware('auth');
 
 Route::post('register','Auth\RegisterController@store')->name('register');
 
 Route::post('/login','Auth\LoginController@login')->name('login');
 Route::post('/logout','Auth\LoginController@logout')->name('logout');
+
+
+Route::get('/calendar', function () {
+    $appointments = \App\Entities\Appointment::all();
+    return view('calendar',compact('appointments'));
+});
