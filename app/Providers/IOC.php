@@ -35,6 +35,10 @@ class IOC extends ServiceProvider
         $this->app->bind("App\\Repositories\\Interfaces\\IWorkingHourRepository", "App\\Repositories\\Implementations\\WorkingHourRepository");
         $this->app->bind("App\\Http\\Services\\Interfaces\\IWorkingHourService", "App\\Http\\Services\\Implementations\\WorkingHourService");
 
+        $this->app->bind("App\\Repositories\\Interfaces\\IServiceEmployeeRepository", "App\\Repositories\\Implementations\\ServiceEmployeeRepository");
+        $this->app->bind("App\\Http\\Services\\Interfaces\\IServiceEmployeeService", "App\\Http\\Services\\Implementations\\ServiceEmployeeService");
+
+
         $this->app->bind("App\\Http\\Services\\Interfaces\\IRegisterService", "App\\Http\\Services\\Implementations\\RegisterService");
 
         $this->app->bind("App\\Http\\Services\\Interfaces\\ILoginService", "App\\Http\\Services\\Implementations\\LoginService");

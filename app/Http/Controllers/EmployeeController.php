@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Employee;
+use App\Entities\EmployeeServiceViewModel;
 use App\Http\Requests\EmployeeValidation;
 use App\Http\Services\Interfaces\IEmployeeService;
+use App\Http\Services\Interfaces\IService;
 use App\Traits\Pagination;
 
 class EmployeeController extends Controller
 {
     use Pagination;
 
-    protected $employeeService;
+    protected $employeeService, $service;
 
-    public function __construct(IEmployeeService $employeeService)
+    public function __construct(IEmployeeService $employeeService, IService $service)
     {
         $this->employeeService = $employeeService;
+        $this->service = $service;
     }
 
     /**
@@ -36,7 +39,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employees.create');
+        $services = $this->service->get();
+        return view('employees.create', compact('services'));
     }
 
     /**
@@ -47,7 +51,7 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeValidation $request)
     {
-       $this->employeeService->insert(new Employee($request->all()));
+       $this->employeeService->insert(new EmployeeServiceViewModel($request->all()));
        session()->flash('message','You have successfully created an employee');
        return redirect()->route('employees.index');
     }
@@ -71,7 +75,9 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('employees.edit',compact('employee'));
+        $services = $this->service->get();
+        $selected_values = implode(',', $employee->employeeServices->pluck('service_id')->toArray());
+        return view('employees.edit',compact('employee','services','selected_values'));
     }
 
     /**
@@ -83,7 +89,7 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeValidation $request, Employee $employee)
     {
-        $this->employeeService->update($employee->fill($request->all()));
+        $this->employeeService->update(new EmployeeServiceViewModel($request->all()), $employee);
         session()->flash('message','You have successfully edited an employee');
         return redirect()->route('employees.index');
     }

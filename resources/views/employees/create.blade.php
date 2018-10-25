@@ -69,6 +69,24 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Services</label>
+                                            @foreach($services as $service)
+                                            <li class="list-group-item">
+                                                {{ $service->name }}
+                                                <div class="material-switch pull-right">
+                                                    <input id="{{ $service->id }}" name="" type="checkbox"/>
+                                                    <label for="{{ $service->id }}" class="label-success"></label>
+                                                </div>
+                                            </li>
+                                                @endforeach
+                                            <input type="hidden" id="checkedValues" name="checked_values">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <hr>
 
                                 <div class="row">
@@ -88,6 +106,8 @@
 @section('scripts')
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/checked.js"></script>
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
     <!-- Moment -->
