@@ -23,6 +23,14 @@
             </ul>
             <ul>
                 <li>
+                    <a href="{{ route('appointments.index') }}" class="">
+                        <i class="	glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                        <span>Appointments</span>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
                     <a href="#" class="toggle-menu">
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                         <span>Employees</span>
@@ -36,15 +44,6 @@
                             <a href="{{ route('employees.create') }}">Create</a>
                         </li>
                     </ul>
-                </li>
-            </ul>
-
-            <ul>
-                <li>
-                    <a href="{{ route('appointments.index') }}" class="">
-                        <i class="	glyphicon glyphicon-calendar" aria-hidden="true"></i>
-                        <span>Appointments</span>
-                    </a>
                 </li>
             </ul>
             </ul>
@@ -67,23 +66,7 @@
                     </ul>
                 </li>
             </ul>
-            <ul>
-                <li>
-                    <a href="#" class="toggle-menu">
-                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                        <span>My bookings</span>
-                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
-                    </a>
-                    <ul class="nested-menu">
-                        <li>
-                            <a href="#">All</a>
-                        </li>
-                        <li>
-                            <a href="#">Create</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+
             <ul>
                 <li>
                     <a href="#" class="toggle-menu">
