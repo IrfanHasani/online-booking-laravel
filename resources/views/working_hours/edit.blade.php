@@ -28,7 +28,7 @@
                 @include('includes.message-block')
                 <div class="panel panel-default panel-custom">
                     <div class="panel-heading panel-custom-heading">
-                        <h3 class="panel-title">Working hours</h3>
+                        <h3 class="panel-title">Working hours of: {{\App\Entities\Employee::find($workingHour->employee_id)->first_name.' '.\App\Entities\Employee::find($workingHour->employee_id)->last_name}} </h3>
                     </div>
                     <div class="panel-body">
                         {!! Form::model($workingHour, ['method' => 'PATCH','route' => ['working-hours.update', $workingHour->id]]) !!}

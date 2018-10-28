@@ -19,8 +19,6 @@
             <li class="tab signup"><a href="#signup">Sign Up</a></li>
         </ul>
         @include('includes.message-block')
-
-
         <div class="tab-content">
             <div id="login">
                 <h1>Hello Please Login</h1>

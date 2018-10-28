@@ -43,12 +43,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @php
-                            $i=1;
-                        @endphp
+
                         @foreach($workingHours as $workingHour)
                             <tr>
-                                <th>{{$i}}</th>
+                                <th>{{$workingHour->id}}</th>
                                 <td>{{ \App\Entities\Employee::find($workingHour->employee_id)->first_name}} {{ \App\Entities\Employee::find($workingHour->employee_id)->last_name}}</td>
                                 <td>{{ $workingHour->date }}</td>
                                 <td>{{ $workingHour->start_time }}</td>
@@ -61,9 +59,6 @@
                                 {!! Form::close() !!}
 
                             </tr>
-                            @php
-                                $i++;
-                            @endphp
 
                         @endforeach
                         </tbody>

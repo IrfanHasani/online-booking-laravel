@@ -21,6 +21,7 @@
 @endsection
 <!-- monitor -->
 @section('content')
+    <a href="{{ \Illuminate\Support\Facades\URL::previous() }}"><h4>◀ Back</h4></a>
     @include('includes.message-block')
     <div class="col-sm-12 col-mobile">
         <div class="board-box">
@@ -44,12 +45,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @php
-                            $i=1;
-                        @endphp
+
                         @foreach($employees as $employee)
                             <tr>
-                                <th>{{$i}}</th>
+                                <th>{{$employee->id}}</th>
                                 <td>{{ $employee->first_name }}</td>
                                 <td>{{ $employee->last_name }}</td>
                                 <td>{{ $employee->email }}</td>
@@ -64,9 +63,6 @@
                                 {!! Form::close() !!}
 
                             </tr>
-                            @php
-                                $i++;
-                            @endphp
 
                         @endforeach
                         </tbody>

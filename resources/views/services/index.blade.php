@@ -21,6 +21,7 @@
 @endsection
 <!-- monitor -->
 @section('content')
+    <a href="{{ \Illuminate\Support\Facades\URL::previous() }}"><h4>◀ Back</h4></a>
     @include('includes.message-block')
     <div class="col-sm-12 col-mobile">
         <div class="board-box">
@@ -41,12 +42,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @php
-                            $i=1;
-                        @endphp
+
                         @foreach($services as $service)
                             <tr>
-                                <th>{{$i}}</th>
+                                <th>{{$service->id}}</th>
                                 <td>{{ $service->name }}</td>
                                 <td>{{ $service->price }}</td>
                                 <td><button class="btn btn-default btn-lg" onclick='window.location.href="{{ route('services.edit',$service->id) }}"'>
@@ -57,9 +56,6 @@
                                 {!! Form::close() !!}
 
                             </tr>
-                            @php
-                                $i++;
-                            @endphp
 
                         @endforeach
                         </tbody>

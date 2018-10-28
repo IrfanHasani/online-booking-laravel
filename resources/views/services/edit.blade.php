@@ -21,14 +21,14 @@
 @endsection
 <!-- monitor -->
 @section('content')
-
+    <a href="{{ \Illuminate\Support\Facades\URL::previous() }}"><h4>◀ Back</h4></a>
     <div class="form-group padding-space">
         <div class="container-fluid">
             <div class="row col-md-offset-3 col-md-6">
                 @include('includes.message-block')
                 <div class="panel panel-default panel-custom">
                     <div class="panel-heading panel-custom-heading">
-                        <h3 class="panel-title">Employees</h3>
+                        <h3 class="panel-title">Service: {{ $service->name }}</h3>
                     </div>
                     <div class="panel-body">
                         {!! Form::model($service, ['method' => 'PATCH','route' => ['services.update', $service->id]]) !!}

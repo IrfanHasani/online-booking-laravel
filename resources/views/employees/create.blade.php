@@ -21,6 +21,7 @@
 @endsection
 <!-- monitor -->
 @section('content')
+    <a href="{{ \Illuminate\Support\Facades\URL::previous() }}"><h4>◀ Back</h4></a>
 
     <div class="form-group padding-space">
         <div class="container-fluid">
@@ -28,7 +29,7 @@
                 @include('includes.message-block')
                 <div class="panel panel-default panel-custom">
                     <div class="panel-heading panel-custom-heading">
-                        <h3 class="panel-title">Employees</h3>
+                        <h3 class="panel-title">Create new employee</h3>
                     </div>
                     <div class="panel-body">
                         <form action="{{ route('employees.store') }}" method="post">

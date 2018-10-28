@@ -21,6 +21,7 @@
 @endsection
 <!-- monitor -->
 @section('content')
+    <a href="{{ \Illuminate\Support\Facades\URL::previous() }}"><h4>◀ Back</h4></a>
     <div class="col-sm-12 col-mobile">
         <div class="board-box">
             <div class="board-title">
@@ -41,12 +42,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @php
-                            $i=1;
-                        @endphp
+
                         @foreach($customers as $customer)
                             <tr>
-                                <th>{{$i}}</th>
+                                <th>{{$customer->id}}</th>
                                 <td>{{ $customer->first_name }}</td>
                                 <td>{{ $customer->last_name }}</td>
                                 <td>{{ $customer->email }}</td>
@@ -57,9 +56,6 @@
                                 {!! Form::close() !!}
 
                             </tr>
-                            @php
-                                $i++;
-                            @endphp
 
                         @endforeach
                         </tbody>

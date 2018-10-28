@@ -28,7 +28,7 @@
                 @include('includes.message-block')
                 <div class="panel panel-default panel-custom">
                     <div class="panel-heading panel-custom-heading">
-                        <h3 class="panel-title">Employees</h3>
+                        <h3 class="panel-title">Create new working hour</h3>
                     </div>
                     <div class="panel-body">
                         <form action="{{ route('working-hours.store') }}" method="post">

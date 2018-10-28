@@ -7,7 +7,7 @@
 <main class="dashboard-content relative">
 @include('includes.sidebar-and-header')
     <!-- /content -->
-    @yield('content')
+@yield('content')
     <!-- content -->
 </main>
 <!-- /scripts -->
