@@ -28,7 +28,7 @@
                 @include('includes.message-block')
                 <div class="panel panel-default panel-custom">
                     <div class="panel-heading panel-custom-heading">
-                        <h3 class="panel-title">Create new service</h3>
+                        <h3 class="panel-title">Service: {{ $service->name }}</h3>
                     </div>
                     <div class="panel-body">
                         <form action="{{ route('services.store') }}" method="post">
@@ -38,7 +38,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="name">Name: </label>
-                                            <input type="text" class="form-control custom-control" id="name" value="{{old('name')}}" name="name" required>
+                                            <input type="text" class="form-control custom-control" id="name" value="{{ $service->name }}" name="name" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -46,17 +46,11 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="price">Price: </label>
-                                            <input type="text" class="form-control custom-control" id="price" value="{{old('price')}}" name="price" required>
+                                            <input type="text" class="form-control custom-control" id="price" value="{{ $service->price }}" name="price" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-
-                                <div class="row">
-                                    <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">
-                                        <button type="submit" class="btn btn-default custom-btn btn-block">Submit</button>
-                                    </div>
-                                </div>
                             </div>
                         </form>
                     </div>

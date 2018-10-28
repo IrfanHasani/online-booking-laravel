@@ -26,7 +26,8 @@
     <div class="col-sm-12 col-mobile">
         <div class="board-box">
             <div class="board-title">
-                <h2>List of all services <a href="{{ route('services.create') }}" class="add-new-employee"><span  style="float: right;padding-right: 20px;" class="fa fa-plus"></span></a></h2>
+                <h2>List of all services <a href="{{ route('services.create') }}" class="add-new-employee"><span
+                                style="float: right;padding-right: 20px;" class="fa fa-plus"></span></a></h2>
             </div>
 
             <div class="table-style">
@@ -39,6 +40,7 @@
                             <th>Price</th>
                             <th class="custom-column"></th>
                             <th class="custom-column"></th>
+                            <th class="custom-column"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,11 +50,21 @@
                                 <th>{{$service->id}}</th>
                                 <td>{{ $service->name }}</td>
                                 <td>{{ $service->price }}</td>
-                                <td><button class="btn btn-default btn-lg" onclick='window.location.href="{{ route('services.edit',$service->id) }}"'>
-                                        <span class="glyphicon glyphicon-edit"></span></button> </td>
+                                <td>
+                                    <button class="btn btn-default btn-lg"
+                                            onclick='window.location.href="{{ route('services.show',$service->id) }}"'>
+                                        <span class="glyphicon glyphicon-eye-open"></span></button>
+
+                                <td>
+                                    <button class="btn btn-default btn-lg"
+                                            onclick='window.location.href="{{ route('services.edit',$service->id) }}"'>
+                                        <span class="glyphicon glyphicon-edit"></span></button>
+                                </td>
                                 {!! Form::open(['method' => 'DELETE','route' => ['services.destroy', $service->id]]) !!}
-                                <td><button type="submit" class="btn btn-default btn-lg">
-                                        <span class="glyphicon glyphicon-remove"></span></button> </td>
+                                <td>
+                                    <button type="submit" class="btn btn-default btn-lg">
+                                        <span class="glyphicon glyphicon-remove"></span></button>
+                                </td>
                                 {!! Form::close() !!}
 
                             </tr>

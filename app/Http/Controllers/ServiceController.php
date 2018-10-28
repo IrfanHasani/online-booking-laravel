@@ -61,7 +61,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //TODO
+        return view('services.show',compact('service'));
     }
 
     /**
