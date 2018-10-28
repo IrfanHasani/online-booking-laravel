@@ -12,7 +12,7 @@ class EmployeeServiceViewModel extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'phone', 'email','checked_values'
+        'first_name', 'last_name', 'phone', 'email','checked_values','date','start_time','finish_time'
     ];
 
     public function toEmployee()
@@ -23,5 +23,14 @@ class EmployeeServiceViewModel extends Model
         $employee->phone = $this->phone;
         $employee->email = $this->email;
         return $employee;
+    }
+
+    public function toWorkingHour()
+    {
+        $workingHour = new WorkingHour();
+        $workingHour->date = $this->date;
+        $workingHour->start_time = $this->start_time;
+        $workingHour->finish_time = $this->finish_time;
+        return $workingHour;
     }
 }

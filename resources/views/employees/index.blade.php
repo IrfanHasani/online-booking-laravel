@@ -40,6 +40,7 @@
                             <th>Phone</th>
                             <th class="custom-column"></th>
                             <th class="custom-column"></th>
+                            <th class="custom-column"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -53,6 +54,8 @@
                                 <td>{{ $employee->last_name }}</td>
                                 <td>{{ $employee->email }}</td>
                                 <td>{{ $employee->phone }}</td>
+                                <td><button class="btn btn-default btn-lg" onclick='window.location.href="{{ route('employees.show',$employee->id) }}"'>
+                                        <span class="glyphicon glyphicon-eye-open"></span></button> </td>
                                 <td><button class="btn btn-default btn-lg" onclick='window.location.href="{{ route('employees.edit',$employee->id) }}"'>
                                         <span class="glyphicon glyphicon-edit"></span></button> </td>
                                 {!! Form::open(['method' => 'DELETE','route' => ['employees.destroy', $employee->id]]) !!}

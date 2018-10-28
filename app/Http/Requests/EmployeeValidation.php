@@ -31,7 +31,11 @@ class EmployeeValidation extends FormRequest
                         'first_name' => 'required',
                         'last_name' => 'required',
                         'email' => 'required|email|unique:employees',
-                        'phone' => 'required|numeric'
+                        'phone' => 'required|numeric',
+                        'checked_values'=>'required',
+                        'date' => 'required|date',
+                        'start_time' => 'required',
+                        'finish_time' => 'required|after:start_time'
                     ];
                     break;
                 }
@@ -42,11 +46,22 @@ class EmployeeValidation extends FormRequest
                         'first_name' => 'required',
                         'last_name' => 'required',
                         'email' => ['required','email',Rule::unique('employees')->ignore($this->route('employee'))],
-                        'phone' => 'required|numeric'
+                        'phone' => 'required|numeric',
+                        'checked_values'=>'required',
+                        'date' => 'required|date',
+                        'start_time' => 'required',
+                        'finish_time' => 'required|after:start_time'
                     ];
                     break;
                 }
         }
 
+    }
+
+    public function messages()
+    {
+        return [
+            'checked_values.required'=>'Please select any service of employee'
+        ];
     }
 }

@@ -64,7 +64,9 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //TODO
+        $selectedValues = $employee->employeeServices;
+        $workingHour = $employee->workingHour->first();
+        return view('employees.show',compact('employee','selectedValues','workingHour'));
     }
 
     /**
@@ -77,7 +79,8 @@ class EmployeeController extends Controller
     {
         $services = $this->service->get();
         $selected_values = implode(',', $employee->employeeServices->pluck('service_id')->toArray());
-        return view('employees.edit',compact('employee','services','selected_values'));
+        $workingHour = $employee->workingHour->first();
+        return view('employees.edit',compact('employee','services','selected_values','workingHour'));
     }
 
     /**

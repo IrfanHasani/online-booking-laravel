@@ -9,16 +9,18 @@ use App\Entities\EmployeeServiceViewModel;
 use App\Http\Services\Interfaces\IEmployeeService;
 use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Interfaces\IServiceEmployeeRepository;
+use App\Repositories\Interfaces\IWorkingHourRepository;
 
 class EmployeeService implements IEmployeeService
 {
 
-    protected $employeeRepository, $serviceEmployeeRepository;
+    protected $employeeRepository, $serviceEmployeeRepository, $workingHourRepository;
 
-    public function __construct(IEmployeeRepository $employeeRepository, IServiceEmployeeRepository $serviceEmployeeRepository)
+    public function __construct(IEmployeeRepository $employeeRepository, IServiceEmployeeRepository $serviceEmployeeRepository, IWorkingHourRepository $workingHourRepository)
     {
         $this->employeeRepository = $employeeRepository;
         $this->serviceEmployeeRepository = $serviceEmployeeRepository;
+        $this->workingHourRepository = $workingHourRepository;
     }
 
     public function get()
@@ -34,6 +36,9 @@ class EmployeeService implements IEmployeeService
     public function insert(EmployeeServiceViewModel $employeeServiceViewModel)
     {
         $employee = $this->employeeRepository->insert($employeeServiceViewModel->toEmployee());
+        $workingHour = $employeeServiceViewModel->toWorkingHour();
+        $workingHour->employee_id = $employee->id;
+        $this->workingHourRepository->insert($workingHour);
         if ($employeeServiceViewModel->checked_values != null) {
             $checkedValues = explode(',', $employeeServiceViewModel->checked_values);
             foreach ($checkedValues as $checkedValue) {
@@ -49,7 +54,8 @@ class EmployeeService implements IEmployeeService
     public function update(EmployeeServiceViewModel $employeeServiceViewModel, Employee $employee)
     {
         $employee = $this->employeeRepository->update($employee->fill($employeeServiceViewModel->toArray()));
-
+        $workingHour = $employee->workingHour->first();
+        $this->workingHourRepository->update($workingHour->fill($employeeServiceViewModel->toArray()));
         $checkedValues = explode(',', $employeeServiceViewModel->checked_values);
         if ($checkedValues[0] == '')
             $checkedValues = [];

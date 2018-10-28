@@ -6,10 +6,11 @@ use App\Entities\Employee;
 use App\Entities\EmployeeServiceViewModel;
 use App\Repositories\Interfaces\IEmployeeRepository;
 use App\Repositories\Interfaces\IServiceEmployeeRepository;
+use App\Repositories\Interfaces\IWorkingHourRepository;
 
 interface IEmployeeService
 {
-    public function __construct(IEmployeeRepository $employeeRepository, IServiceEmployeeRepository $serviceEmployeeRepository);
+    public function __construct(IEmployeeRepository $employeeRepository, IServiceEmployeeRepository $serviceEmployeeRepository, IWorkingHourRepository $workingHourRepository);
 
     public function get();
 

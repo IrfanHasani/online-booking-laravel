@@ -21,14 +21,13 @@
 @endsection
 <!-- monitor -->
 @section('content')
-
     <div class="form-group padding-space">
         <div class="container-fluid">
             <div class="row col-md-offset-3 col-md-6">
                 @include('includes.message-block')
                 <div class="panel panel-default panel-custom">
                     <div class="panel-heading panel-custom-heading">
-                        <h3 class="panel-title">Employees</h3>
+                        <h3 class="panel-title">{{ $employee->first_name.' '. $employee->last_name }}</h3>
                     </div>
                     <div class="panel-body">
                         <form action="{{ route('employees.store') }}" method="post">
@@ -38,7 +37,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="first_name">First Name: </label>
-                                            <input type="text" class="form-control custom-control" id="first_name" value="{{old('first_name')}}" name="first_name" required>
+                                            <input type="text" class="form-control custom-control" id="first_name" value="{{ $employee->first_name }}" name="first_name" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -46,7 +45,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="last_name">Last Name: </label>
-                                            <input type="text" class="form-control custom-control" id="last_name" value="{{old('last_name')}}" name="last_name" required>
+                                            <input type="text" class="form-control custom-control" id="last_name" value="{{ $employee->last_name }}" name="last_name" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +54,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="email">Email: </label>
-                                            <input type="email" class="form-control custom-control" id="email" value="{{old('email')}}" name="email" required>
+                                            <input type="email" class="form-control custom-control" id="email" value="{{ $employee->email }}" name="email" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -64,7 +63,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="phone">Phone: </label>
-                                            <input type="tel" class="form-control custom-control" id="phone" value="{{old('phone')}}" name="phone" required>
+                                            <input type="tel" class="form-control custom-control" id="phone" value="{{ $employee->phone }}" name="phone" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -74,16 +73,11 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label>Services</label>
-                                            @foreach($services as $service)
-                                            <li class="list-group-item">
-                                                {{ $service->name }}
-                                                <div class="material-switch pull-right">
-                                                    <input id="{{ $service->id }}" name="" type="checkbox"/>
-                                                    <label for="{{ $service->id }}" class="label-success"></label>
-                                                </div>
-                                            </li>
-                                                @endforeach
-                                            <input type="hidden" id="checkedValues" name="checked_values">
+                                            @foreach($selectedValues as $selectedValue)
+                                                <li class="list-group-item">
+                                                    {{ $selectedValue->service->name }}
+                                                </li>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +86,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="date">Date: </label>
-                                            <input type="date" class="form-control custom-control" id="date" value="{{old('date')}}" name="date" required>
+                                            <input type="date" class="form-control custom-control" id="date" value="{{$workingHour->date}}" name="date" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +95,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="start_time">Start time: </label>
-                                            <input type="time" class="form-control custom-control" id="start_time" value="{{old('start_time')}}" name="start_time" required>
+                                            <input type="time" class="form-control custom-control" id="start_time" value="{{$workingHour->start_time}}" name="start_time" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -110,18 +104,12 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="finish_time">Finish time: </label>
-                                            <input type="time" class="form-control custom-control" id="finish_time" value="{{old('finish_time')}}" name="finish_time" required>
+                                            <input type="time" class="form-control custom-control" id="finish_time" value="{{ $workingHour->finish_time }}" name="finish_time" readonly>
                                         </div>
                                     </div>
                                 </div>
 
                                 <hr>
-
-                                <div class="row">
-                                    <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">
-                                        <button type="submit" class="btn btn-default custom-btn btn-block">Submit</button>
-                                    </div>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -134,7 +122,6 @@
 @section('scripts')
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/js/jquery-3.2.1.min.js"></script>
-    <script src="/js/checked.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>

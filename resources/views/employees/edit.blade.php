@@ -88,6 +88,33 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="date">Date: </label>
+                                            <input type="date" class="form-control custom-control" id="date" value="{{ $workingHour->date }}" name="date" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="start_time">Start time: </label>
+                                            <input type="time" class="form-control custom-control" id="start_time" value="{{ $workingHour->start_time }}" name="start_time" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="finish_time">Finish time: </label>
+                                            <input type="time" class="form-control custom-control" id="finish_time" value="{{ $workingHour->finish_time }}" name="finish_time" required>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <hr>
 
                                 <div class="row">
