@@ -21,6 +21,7 @@
 @endsection
 <!-- monitor -->
 @section('content')
+    <a href="{{ \Illuminate\Support\Facades\URL::previous() }}"><h4>◀ Back</h4></a>
 
     <div class="form-group padding-space">
         <div class="container-fluid">

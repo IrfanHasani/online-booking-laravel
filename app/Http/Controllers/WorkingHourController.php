@@ -64,7 +64,7 @@ class WorkingHourController extends Controller
      */
     public function show(WorkingHour $workingHour)
     {
-        //TODO
+        return view('working_hours.show',compact('workingHour'));
     }
 
     /**

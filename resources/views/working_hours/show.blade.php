@@ -32,18 +32,14 @@
                         <h3 class="panel-title">Create new working hour</h3>
                     </div>
                     <div class="panel-body">
-                        <form action="{{ route('working-hours.store') }}" method="post">
+                        <form action="" method="post">
                             {{ csrf_field() }}
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="employee_id">Employee: </label>
-                                            <select name="employee_id" class="form-control custom-control">
-                                                @foreach($employees as $employee)
-                                                <option value="{{ $employee->id }}">{{$employee->first_name.' '. $employee->last_name}}</option>
-                                                    @endforeach
-                                            </select>
+                                            <label for="employee_id">Employee: {{\App\Entities\Employee::find($workingHour->employees->id)->first_name.' '.\App\Entities\Employee::find($workingHour->employees->id)->last_name}}</label>
+                                            <input type="text" class="form-control custom-control" id="employee_id" value="{{\App\Entities\Employee::find($workingHour->employees->id)->first_name.' '.\App\Entities\Employee::find($workingHour->employees->id)->last_name}}" name="employee_id" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +47,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="date">Date: </label>
-                                            <input type="date" class="form-control custom-control" id="date" value="{{old('date')}}" name="date" required>
+                                            <input type="date" class="form-control custom-control" id="date" value="{{$workingHour->date}}" name="date" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +56,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="start_time">Start time: </label>
-                                            <input type="time" class="form-control custom-control" id="start_time" value="{{old('start_time')}}" name="start_time" required>
+                                            <input type="time" class="form-control custom-control" id="start_time" value="{{$workingHour->start_time}}" name="start_time" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -69,18 +65,12 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="finish_time">Finish time: </label>
-                                            <input type="time" class="form-control custom-control" id="finish_time" value="{{old('finish_time')}}" name="finish_time" required>
+                                            <input type="time" class="form-control custom-control" id="finish_time" value="{{ $workingHour->finish_time }}" name="finish_time" readonly>
                                         </div>
                                     </div>
                                 </div>
 
                                 <hr>
-
-                                <div class="row">
-                                    <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">
-                                        <button type="submit" class="btn btn-default custom-btn btn-block">Submit</button>
-                                    </div>
-                                </div>
                             </div>
                         </form>
                     </div>

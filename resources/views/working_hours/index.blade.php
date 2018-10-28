@@ -21,6 +21,8 @@
 @endsection
 <!-- monitor -->
 @section('content')
+    <a href="{{ \Illuminate\Support\Facades\URL::previous() }}"><h4>◀ Back</h4></a>
+
     @include('includes.message-block')
     <div class="col-sm-12 col-mobile">
         <div class="board-box">
@@ -40,6 +42,7 @@
                             <th>Finish time</th>
                             <th class="custom-column"></th>
                             <th class="custom-column"></th>
+                            <th class="custom-column"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,6 +54,9 @@
                                 <td>{{ $workingHour->date }}</td>
                                 <td>{{ $workingHour->start_time }}</td>
                                 <td>{{ $workingHour->finish_time }}</td>
+                                <td> <button class="btn btn-default btn-lg"
+                                             onclick='window.location.href="{{ route('working-hours.show',$workingHour->id) }}"'>
+                                        <span class="glyphicon glyphicon-eye-open"></span></button></td>
                                 <td><button class="btn btn-default btn-lg" onclick='window.location.href="{{ route('working-hours.edit',$workingHour->id) }}"'>
                                         <span class="glyphicon glyphicon-edit"></span></button> </td>
                                 {!! Form::open(['method' => 'DELETE','route' => ['working-hours.destroy', $workingHour->id]]) !!}

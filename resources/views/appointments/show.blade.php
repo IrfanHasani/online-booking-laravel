@@ -22,6 +22,7 @@
 <!-- monitor -->
 @section('content')
     <a href="{{ \Illuminate\Support\Facades\URL::previous() }}"><h4>◀ Back</h4></a>
+
     <div class="form-group padding-space">
         <div class="container-fluid">
             <div class="row col-md-offset-3 col-md-6">
@@ -46,8 +47,8 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="service_id">Comment: </label>
-                                            <input type="text" class="form-control custom-control" id="comments" value="{{ \App\Entities\Service::find($appointment->service->first()->id)->name }}" name="comments" readonly>
+                                            <label for="service_id">Service: </label>
+                                            <input type="text" class="form-control custom-control" id="comments" value="{{ \App\Entities\Service::find($appointment->service_id)->name }}" name="comments" readonly>
                                         </div>
                                     </div>
                                 </div>
