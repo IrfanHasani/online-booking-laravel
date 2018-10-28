@@ -22,4 +22,9 @@ class Service extends Model
     {
         return $this->hasMany('App\Entities\EmployeeService','service_id');
     }
+
+    public function appointments()
+    {
+        return $this->hasMany('App\Entities\Appointment','service_id');
+    }
 }

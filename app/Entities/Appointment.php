@@ -15,7 +15,7 @@ class Appointment extends Model
      * @var array
      */
     protected $fillable = [
-        'employee_id', 'user_id', 'start_time', 'finish_time', 'comments'
+        'service_id','employee_id','date', 'user_id', 'start_time', 'finish_time', 'comments'
     ];
 
     public function employee()
@@ -26,5 +26,10 @@ class Appointment extends Model
     public function user()
     {
         return $this->belongsTo('App\Entities\User', 'user_id');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo('App\Entities\Service', 'user_id');
     }
 }

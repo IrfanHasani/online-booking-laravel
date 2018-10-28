@@ -19,8 +19,8 @@ class CreateAppointmentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('service_id')->unsigned();
             $table->date('date');
-            $table->dateTime('start_time');
-            $table->dateTime('finish_time');
+            $table->time('start_time')->format('h:i');
+            $table->time('finish_time')->format('h:i');;
             $table->string('comments');
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

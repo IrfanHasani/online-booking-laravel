@@ -41,22 +41,14 @@
 
             <ul>
                 <li>
-                    <a href="#" class="toggle-menu">
-                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                        <span>My bookings</span>
-                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                    <a href="{{ route('appointments.index') }}" class="">
+                        <i class="	glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                        <span>Appointments</span>
                     </a>
-                    <ul class="nested-menu">
-                        <li>
-                            <a href="#">All</a>
-                        </li>
-                        <li>
-                            <a href="#">Create</a>
-                        </li>
-                    </ul>
                 </li>
-            </ul>               </ul>
-                </li>
+            </ul>
+            </ul>
+            </li>
             </ul>
             <ul>
                 <li>
@@ -142,7 +134,9 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#"><i class="fa fa-user-o" aria-hidden="true"></i>User Profile</a></li>
                                 <li><a href="#"><i class="fa fa-inbox" aria-hidden="true"></i>Inbox</a></li>
-                                <li><a href="#" onclick="$('#logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out</a></li>
+                                <li><a href="#" onclick="$('#logout-form').submit();"><i class="fa fa-sign-out"
+                                                                                         aria-hidden="true"></i> Sign
+                                        Out</a></li>
                             </ul>
                         </li>
                     </ul>

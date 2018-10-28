@@ -84,7 +84,7 @@
     <!-- /monitor -->
     <!-- calendar -->
     <section class="board calendar padding-space-half">
-        <span style="margin-left:30px"><button class="btn btn-default custom-btn btn-inline">ADD NEW</button></span>
+        <a href="{{ route('appointments.create') }}"><span style="margin-left:30px"><button class="btn btn-default custom-btn btn-inline"> ADD NEW</button></span></a>
         <div id="appointment-calendar" style="margin-top: 20px;margin-left: 30px;width: 95%"></div>
     </section>
     <!-- /calendar -->
@@ -102,8 +102,9 @@
                         @foreach($appointments as $appointment)
                     {
                         title : '{{ $appointment->user->first_name. ' '. $appointment->user->last_name }}',
-                        start : '{{ $appointment->start_time }}',
-                        end : '{{ $appointment->finish_time }}',
+                        start : '{{ $appointment->date.' '.$appointment->start_time }}',
+                        end : '{{ $appointment->date.' '.$appointment->finish_time }}',
+                        url: '{{ route('appointments.show',$appointment->id) }}',
                         backgroundColor:'#3e4140',
                     },
                     @endforeach

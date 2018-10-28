@@ -1,0 +1,133 @@
+@extends('layouts.app')
+@section('head')
+    @include('includes.head',['title'=>'Create new working hour'])
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Datepicker -->
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+    <!-- Font -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+@endsection
+<!-- monitor -->
+@section('content')
+    <div class="form-group padding-space">
+        <div class="container-fluid">
+            <div class="row col-md-offset-3 col-md-6">
+                @include('includes.message-block')
+                <div class="panel panel-default panel-custom">
+                    <div class="panel-heading panel-custom-heading">
+                        <h3 class="panel-title">Employees</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="{{ route('appointments.store') }}" method="post">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="service_id">Service: </label>
+                                            <select name="service_id" class="form-control custom-control">
+                                                @foreach($services as $service)
+                                                    <option value="{{ $service->id }}">{{$service->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="date">Date: </label>
+                                            <input type="date" class="form-control custom-control" id="date" value="{{old('date')}}" name="date" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="employee_id">Employee: </label>
+                                            <select name="employee_id" class="form-control custom-control">
+                                                @foreach($employees as $employee)
+                                                    <option value="{{ $employee->id }}">{{$employee->first_name.' '. $employee->last_name. ' ('.date('g:iA',strtotime($employee->workingHour->first()->start_time)).'-'.date('g:iA',strtotime($employee->workingHour->first()->finish_time)).')'}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="start_time">Start time: </label>
+                                            <input type="time" class="form-control custom-control" id="start_time" name="start_time"  required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="finish_time">Finish time: </label>
+                                            <input type="time" class="form-control custom-control" id="finish_time" value="{{old('finish_time')}}" name="finish_time" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="comments">Comment: </label>
+                                            <textarea class="form-control custom-control" style="resize: none" id="comments" value="{{old('comments')}}" name="comments" maxlength="150" required>{{old('comments')}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">
+                                        <button type="submit" class="btn btn-default custom-btn btn-block">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("date")[0].setAttribute('min', today);
+        var minTime = document.querySelector('input[name="start_time"]');
+        minTime.value ='{{date('H:i',strtotime($employee->workingHour->first()->start_time))}}';
+        document.querySelector('input[name="start_time"]').min(minTime);
+        var maxTime = document.querySelector('input[name="finish_time"]');
+        maxTime.value ='{{date('H:i',strtotime($employee->workingHour->first()->finish_time))}}';
+    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Moment -->
+    <script src="/js/moment.min.js"></script>
+    <!-- Bootstrap Datepicker -->
+    <script src="/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Main -->
+    <script src="/js/main.js"></script>
+@endsection
