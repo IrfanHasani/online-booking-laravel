@@ -72,7 +72,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <label for="start_time">Start time: </label>
-                                            <input type="time" class="form-control custom-control" id="start_time" name="start_time"  required>
+                                            <input type="time" class="form-control custom-control" id="start_time" name="start_time" value="{{old('start_time')}}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -115,11 +115,6 @@
     <script>
         var today = new Date().toISOString().split('T')[0];
         document.getElementsByName("date")[0].setAttribute('min', today);
-        var minTime = document.querySelector('input[name="start_time"]');
-        minTime.value ='{{date('H:i',strtotime($employee->workingHour->first()->start_time))}}';
-        document.querySelector('input[name="start_time"]').min(minTime);
-        var maxTime = document.querySelector('input[name="finish_time"]');
-        maxTime.value ='{{date('H:i',strtotime($employee->workingHour->first()->finish_time))}}';
     </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/js/jquery-3.2.1.min.js"></script>

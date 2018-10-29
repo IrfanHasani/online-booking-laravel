@@ -25,6 +25,11 @@ class AppointmentValidation extends FormRequest
      */
     public function rules()
     {
+        if($this->employee_id==null)
+            return [
+              'employee_id'=>'required'
+            ];
+
         return [
             'employee_id' => 'required',
             'user_id' => 'required',
