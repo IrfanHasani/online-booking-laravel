@@ -1,0 +1,98 @@
+.dashboard-content {
+    left: 250px;
+    width: calc(100% - 250px);
+    transition: .5s all ease-out;
+}
+
+.dashboard-content .monitor .monitor-box {
+    border-radius: 4px;
+    padding: 15px 15px 30px;
+    background-color: #949d9b !important;
+    color: #fff;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: .5s all ease-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.dashboard-content .monitor .monitor-box:hover {
+    background-color: #3e4140 !important;
+}
+
+.dashboard-content .monitor .monitor-box .icon {
+    font-size: 36px;
+}
+
+.dashboard-content .monitor .monitor-box h4 {
+    margin: 0;
+}
+
+.dashboard-content .monitor .monitor-box .count-number {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.dashboard-content .board .board-box {
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    margin-bottom: 15px;
+}
+
+.dashboard-content .board .board-box .board-title {
+    background-color: #e8f1f3;
+    border-bottom: 1px solid #b7b9bf;
+    padding: 15px;
+}
+
+.dashboard-content .board .board-box .board-title h4 {
+    margin: 0;
+}
+
+.dashboard-content .board .board-box .table-style {
+    padding: 15px;
+}
+
+.table-hover .custom-column {
+    width: 1px!important;
+}
+
+.dashboard-content .board .board-box .table-style .table-hover > tbody > tr {
+    transition: .5s all ease;
+}
+
+.dashboard-content .board .board-box .table-style .table-hover > tbody > tr:hover {
+    background-color: #c4e3f3;
+}
+
+.dashboard-content .board .board-box .table-style .table-hover > tbody > tr.active td {
+    background-color: #c4e3f3;
+}
+
+.dashboard-content .board .board-box .table-style .my-pagination {
+    text-align: right;
+}
+
+.dashboard-content .calendar-wrapper {
+    padding: 15px;
+}
+
+.dashboard-content .calendar-wrapper td {
+    background-color: #f1f3f6;
+    box-shadow: 0 0 0 1px #D5D4D4;
+    border-radius: 0px;
+}
+
+
+@media (max-width: 767px) {
+    .dashboard-content {
+        width: 100%;
+        left: 0;
+    }
+
+    .dashboard-toggle {
+        left: 250px;
+    }
+}

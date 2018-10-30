@@ -1,0 +1,84 @@
+.header .header-top {
+    background-color: #404040;
+    border-bottom: 1px solid #3e4140;
+}
+
+.header .header-top .settings {
+    text-align: right;
+}
+
+.header .header-top .settings > li {
+    display: inline-block;
+    height: 75px;
+    line-height: 75px;
+    transition: .5s all ease-out;
+}
+
+.header .header-top .settings > li:first-child > a {
+    width: 60px;
+    text-align: center;
+}
+
+.header .header-top .settings > li > a {
+    color: #fff;
+    display: block;
+    padding: 0 5px;
+    cursor: pointer;
+    font-size: 18;
+}
+
+.header .header-top .settings > li > a img {
+    max-height: 50px;
+}
+
+.header .header-top .settings > li > a:hover {
+    background-color: #000;
+}
+
+.header .header-top .settings > li > li.dropdown.open {
+    background-color: #949d9b;
+}
+
+.header .header-top .settings > li .dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
+.header .header-top .settings > li .dropdown-menu li a:hover {
+    background-color: #949d9b;
+    color: #fff;
+}
+
+.header .header-top .settings > li .dropdown-menu li a i {
+    margin-right: 10px;
+}
+
+.header .header-top .header-content {
+    background-color: #fff;
+    border-bottom: 1px solid #e1e6ef;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    padding: 10px 0;
+}
+
+.header .header-top .header-content .icon {
+    font-size: 30px;
+    float: left;
+    margin-right: 15px;
+    color: #949d9b;
+}
+
+.header .header-top .header-content .header-title {
+    overflow: hidden;
+}
+
+.header .header-top .header-content h2 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.header .header-top .header-content p {
+    font-size: 13px;
+    font-weight: 300;
+    margin: 0;
+}
