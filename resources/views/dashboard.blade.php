@@ -97,7 +97,7 @@
             // page is now ready, initialize the calendar...
             $('#appointment-calendar').fullCalendar({
                 height:750,
-                header: { center: 'month,agendaWeek,list' },
+                header: { center: 'month,agendaWeek,listWeek' },
                 events : [
                         @foreach($appointments as $appointment)
                     {
