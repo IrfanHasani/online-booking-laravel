@@ -58,13 +58,13 @@ label {
 }
 
 .btn.custom-btn {
-    background-color: #949d9b;
+    background-color: #60916f;
     color: #fff;
     border-radius: 0px;
 }
 
 .btn.custom-btn:hover{
-    background-color: #3e4140;
+    background-color: #548061;
 }
 
 .btn.custom-btn:active:hover, .btn.custom-btn:active:focus {
