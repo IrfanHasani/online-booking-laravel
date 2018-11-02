@@ -7,7 +7,7 @@
 .dashboard-content .monitor .monitor-box {
     border-radius: 4px;
     padding: 15px 15px 30px;
-    background-color: #949d9b !important;
+    background-color: #7d95ae !important;
     color: #fff;
     margin-bottom: 15px;
     cursor: pointer;
@@ -16,7 +16,7 @@
 }
 
 .dashboard-content .monitor .monitor-box:hover {
-    background-color: #3e4140 !important;
+    background-color: #566c82 !important;
 }
 
 .dashboard-content .monitor .monitor-box .icon {
