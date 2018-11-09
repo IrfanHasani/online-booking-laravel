@@ -9,6 +9,7 @@ use App\Http\Services\Interfaces\IEmployeeService;
 use App\Http\Services\Interfaces\IService;
 use App\Traits\Pagination;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -26,10 +27,12 @@ class AppointmentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('appointments',Auth::user());
         $appointments = $this->paginate($this->appointmentService->get(), $this->limitOfPagination());
         return view('appointments.index',compact('appointments'));
     }

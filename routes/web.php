@@ -23,7 +23,11 @@ Route::resource('working-hours','WorkingHourController')->middleware('auth');
 Route::resource('appointments','AppointmentController')->middleware('auth');
 
 Route::get('dashboard', function (){
-    $appointments = \App\Entities\Appointment::all();
+    if(\Illuminate\Support\Facades\Auth::user()->role_id!=1)
+        $appointments = \App\Entities\Appointment::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)->get();
+    else {
+        $appointments = \App\Entities\Appointment::all();
+    }
    return view('dashboard', compact('appointments'));
 })->name('dashboard')->middleware('auth');
 

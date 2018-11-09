@@ -13,77 +13,86 @@
 
             </ul>
 
-            <ul>
-                <li>
-                    <a href="{{ route('customers.index') }}" class="">
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        <span>Customers</span>
-                    </a>
+            @can('customers',\Illuminate\Support\Facades\Auth::user())
+                <ul>
+                    <li>
+                        <a href="{{ route('customers.index') }}" class="">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <span>Customers</span>
+                        </a>
+                    </li>
+                </ul>
+            @endcan
+            @can('appointments',\Illuminate\Support\Facades\Auth::user())
+                <ul>
+                    <li>
+                        <a href="{{ route('appointments.index') }}" class="">
+                            <i class="	glyphicon glyphicon-calendar" aria-hidden="true"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                </ul>
+            @endcan
+            @can('employees',\Illuminate\Support\Facades\Auth::user())
+                <ul>
+                    <li>
+                        <a href="#" class="toggle-menu">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <span>Employees</span>
+                            <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                        </a>
+                        <ul class="nested-menu">
+                            <li>
+                                <a href="{{ route('employees.index') }}">All</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('employees.create') }}">Create</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                </ul>
                 </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="{{ route('appointments.index') }}" class="">
-                        <i class="	glyphicon glyphicon-calendar" aria-hidden="true"></i>
-                        <span>Appointments</span>
-                    </a>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="#" class="toggle-menu">
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        <span>Employees</span>
-                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
-                    </a>
-                    <ul class="nested-menu">
-                        <li>
-                            <a href="{{ route('employees.index') }}">All</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('employees.create') }}">Create</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            </ul>
-            </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="#" class="toggle-menu">
-                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                        <span>Services</span>
-                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
-                    </a>
-                    <ul class="nested-menu">
-                        <li>
-                            <a href="{{ route('services.index') }}">All</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('services.create') }}">Create</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-            <ul>
-                <li>
-                    <a href="#" class="toggle-menu">
-                        <i class="fa fa-hourglass-start" aria-hidden="true"></i>
-                        <span>Working Hours</span>
-                        <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
-                    </a>
-                    <ul class="nested-menu">
-                        <li>
-                            <a href="{{ route('working-hours.index') }}">All</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('working-hours.create') }}">Create</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                </ul>
+            @endcan
+            @can('services', \Illuminate\Support\Facades\Auth::user())
+                <ul>
+                    <li>
+                        <a href="#" class="toggle-menu">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span>Services</span>
+                            <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                        </a>
+                        <ul class="nested-menu">
+                            <li>
+                                <a href="{{ route('services.index') }}">All</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('services.create') }}">Create</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endcan
+            @can('employees',\Illuminate\Support\Facades\Auth::user())
+                <ul>
+                    <li>
+                        <a href="#" class="toggle-menu">
+                            <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                            <span>Working Hours</span>
+                            <div class="icon"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+                        </a>
+                        <ul class="nested-menu">
+                            <li>
+                                <a href="{{ route('working-hours.index') }}">All</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('working-hours.create') }}">Create</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            @endcan
         </nav>
     </div>
 </aside>

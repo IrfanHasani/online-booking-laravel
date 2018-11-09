@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Services\Interfaces\IUserService;
 use App\Traits\Pagination;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -20,10 +21,12 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('customers', Auth::user());
         $customers = $this->paginate($this->userService->get()->where('role_id',2), $this->limitOfPagination());
         return view('customers.index',compact('customers'));
     }

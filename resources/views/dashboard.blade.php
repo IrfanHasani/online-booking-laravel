@@ -23,6 +23,7 @@
 @endsection
 <!-- monitor -->
 @section('content')
+    @can('employees',\Illuminate\Support\Facades\Auth::user())
     <section class="monitor padding-space-half">
         <div class="container-fluid">
             <div class="row">
@@ -34,7 +35,7 @@
                         <h4>Customers</h4>
 
                         <div class="count-number">
-                            <p>11 <i class="fa fa-long-arrow-up" aria-hidden="true"></i></p>
+                            <p>{{ count(\App\Entities\User::where('role_id',2)->get()) }} <i class="fa fa-long-arrow-up" aria-hidden="true"></i></p>
                         </div>
                     </div>
                 </div><a/>
@@ -48,7 +49,7 @@
                         <h4>Employees</h4>
 
                         <div class="count-number">
-                            <p>2 <i class="fa fa-long-arrow-up" aria-hidden="true"></i></p>
+                            <p>{{ count(\App\Entities\Employee::all()) }} <i class="fa fa-long-arrow-up" aria-hidden="true"></i></p>
                         </div>
                     </div>
                 </div>
@@ -81,6 +82,7 @@
             </div>
         </div>
     </section>
+    @endcan
     <!-- /monitor -->
     <!-- calendar -->
     <section class="board calendar padding-space-half">

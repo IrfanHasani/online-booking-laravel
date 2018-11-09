@@ -8,6 +8,7 @@ use App\Http\Requests\EmployeeValidation;
 use App\Http\Services\Interfaces\IEmployeeService;
 use App\Http\Services\Interfaces\IService;
 use App\Traits\Pagination;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -24,10 +25,12 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('employees', Auth::user());
         $employees = $this->paginate( $this->employeeService->get(), $this->limitOfPagination());
         return view('employees.index', compact('employees'));
     }
@@ -35,10 +38,12 @@ class EmployeeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize('employees', Auth::user());
         $services = $this->service->get();
         return view('employees.create', compact('services'));
     }
@@ -46,12 +51,14 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param EmployeeValidation $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(EmployeeValidation $request)
     {
-       $this->employeeService->insert(new EmployeeServiceViewModel($request->all()));
+        $this->authorize('employees', Auth::user());
+        $this->employeeService->insert(new EmployeeServiceViewModel($request->all()));
        session()->flash('message','You have successfully created an employee');
        return redirect()->route('employees.index');
     }
@@ -59,11 +66,13 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Entities\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Employee $employee)
     {
+        $this->authorize('employees', Auth::user());
         $selectedValues = $employee->employeeServices;
         $workingHour = $employee->workingHour->first();
         return view('employees.show',compact('employee','selectedValues','workingHour'));
@@ -72,11 +81,13 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Entities\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Employee $employee)
     {
+        $this->authorize('employees', Auth::user());
         $services = $this->service->get();
         $selected_values = implode(',', $employee->employeeServices->pluck('service_id')->toArray());
         $workingHour = $employee->workingHour->first();
@@ -86,12 +97,14 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param EmployeeValidation $request
+     * @param Employee $employee
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(EmployeeValidation $request, Employee $employee)
     {
+        $this->authorize('employees', Auth::user());
         $this->employeeService->update(new EmployeeServiceViewModel($request->all()), $employee);
         session()->flash('message','You have successfully edited an employee');
         return redirect()->route('employees.index');
@@ -102,9 +115,11 @@ class EmployeeController extends Controller
      *
      * @param  \App\Entities\Employee  $employee
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Employee $employee)
     {
+        $this->authorize('employees', Auth::user());
         $this->employeeService->delete($employee->id);
         session()->flash('message','You have successfully deleted an employee');
         return redirect()->route('employees.index');
